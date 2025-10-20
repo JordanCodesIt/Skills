@@ -1,0 +1,130 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  background: white;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-card mat-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.logo-container {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.logo-icon {
+  color: white;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+.register-title {
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  text-align: center;
+  color: #1a202c;
+}
+
+.register-subtitle {
+  font-size: 14px !important;
+  text-align: center;
+  color: #718096 !important;
+  margin-bottom: 0 !important;
+}
+
+mat-card-content {
+  padding: 0 !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 16px;
+}
+
+mat-form-field .mat-icon {
+  color: #a0aec0;
+  margin-right: 8px;
+}
+
+.actions-container {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.register-button {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.register-button:active {
+  transform: translateY(0);
+}
+
+.login-prompt {
+  text-align: center;
+  color: #718096;
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .register-card {
+    padding: 24px 20px;
+  }
+
+  .register-title {
+    font-size: 24px !important;
+  }
+}
