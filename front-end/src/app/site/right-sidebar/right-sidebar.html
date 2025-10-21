@@ -1,0 +1,52 @@
+    <aside class="right-sidebar">
+      <!-- Create Post Section -->
+      <div class="create-post-card">
+        <mat-icon class="create-icon">edit_note</mat-icon>
+        <h3 class="create-title">Share Your Story</h3>
+        <p class="create-description">Have something to share? Create a post and connect with the community.</p>
+        <button mat-flat-button class="create-btn" (click)="navigateToCreatePost()">
+          <mat-icon>add</mat-icon>
+          Create Post
+        </button>
+      </div>
+
+      <!-- Popular Threads Section -->
+      <div class="popular-threads-card">
+        <h3 class="section-title">
+          <mat-icon>trending_up</mat-icon>
+          Most Popular Threads
+        </h3>
+
+        <div class="threads-list">
+          <div
+            *ngFor="let thread of popularThreads; let i = index"
+            class="thread-item"
+            (click)="navigateToThread(thread)">
+            <div class="thread-rank">{{ i + 1 }}</div>
+            <div class="thread-content">
+              <h4 class="thread-title">{{ thread.title }}</h4>
+              <div class="thread-meta">
+                <span class="meta-item">
+                  <mat-icon>person</mat-icon>
+                  {{ thread.author }}
+                </span>
+                <span class="meta-item">
+                  <mat-icon>chat_bubble</mat-icon>
+                  {{ thread.replies }}
+                </span>
+                <span class="meta-item">
+                  <mat-icon>visibility</mat-icon>
+                  {{ formatViews(thread.views) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button mat-button class="view-all-btn" (click)="viewAllThreads()">
+          View All Discussions
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </aside>
+

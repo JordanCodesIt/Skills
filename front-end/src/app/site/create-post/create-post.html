@@ -1,0 +1,166 @@
+  <div class="create-post-container">
+      <div class="create-post-header">
+        <button mat-icon-button class="back-btn" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1 class="page-title">Create New Post</h1>
+      </div>
+
+      <div class="create-post-card">
+        <!-- Title Section -->
+        <div class="form-section">
+          <label class="section-label">
+            <mat-icon>title</mat-icon>
+            Post Title
+          </label>
+          <mat-form-field appearance="outline" class="full-width">
+            <input
+              matInput
+              placeholder="Enter an engaging title for your post..."
+              [(ngModel)]="postTitle"
+              maxlength="200">
+            <mat-hint align="end">{{ postTitle.length }}/200</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!-- Tags Section -->
+        <div class="form-section">
+          <label class="section-label">
+            <mat-icon>label</mat-icon>
+            Tags
+          </label>
+          <div class="tags-container">
+            <mat-chip-listbox class="selected-tags">
+              <mat-chip-option
+                *ngFor="let tag of selectedTags"
+                (removed)="removeTag(tag)">
+                #{{ tag }}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+
+          <div class="available-tags">
+            <p class="available-tags-label">Available Tags (click to add):</p>
+            <div class="tags-grid">
+              <span
+                *ngFor="let tag of getAvailableTags()"
+                class="tag-chip"
+                (click)="addTag(tag)">
+                #{{ tag }}
+              </span>
+            </div>
+          </div>
+
+          <div class="add-custom-tag">
+            <mat-form-field appearance="outline" class="tag-input">
+              <mat-icon matPrefix>add</mat-icon>
+              <input
+                matInput
+                placeholder="Add custom tag..."
+                [(ngModel)]="customTag"
+                (keyup.enter)="addCustomTag()">
+            </mat-form-field>
+            <button mat-flat-button class="add-tag-btn" (click)="addCustomTag()">
+              Add Tag
+            </button>
+          </div>
+        </div>
+
+        <!-- Cover Image Section -->
+        <div class="form-section">
+          <label class="section-label">
+            <mat-icon>image</mat-icon>
+            Cover Image (Optional)
+          </label>
+
+          <div class="image-upload-area" (click)="fileInput.click()">
+            <div *ngIf="!coverImageUrl" class="upload-placeholder">
+              <mat-icon>cloud_upload</mat-icon>
+              <p>Click to upload cover image</p>
+              <span class="upload-hint">PNG, JPG up to 5MB</span>
+            </div>
+            <div *ngIf="coverImageUrl" class="image-preview">
+              <img [src]="coverImageUrl" alt="Cover preview">
+              <button mat-icon-button class="remove-image-btn" (click)="removeCoverImage($event)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            style="display: none"
+            (change)="onFileSelected($event)">
+        </div>
+
+        <!-- Content Section (Markdown) -->
+        <div class="form-section">
+          <label class="section-label">
+            <mat-icon>edit_note</mat-icon>
+            Content (Markdown Supported)
+          </label>
+
+          <div class="markdown-toolbar">
+            <button mat-icon-button title="Bold" (click)="insertMarkdown('**', '**')">
+              <mat-icon>format_bold</mat-icon>
+            </button>
+            <button mat-icon-button title="Italic" (click)="insertMarkdown('*', '*')">
+              <mat-icon>format_italic</mat-icon>
+            </button>
+            <button mat-icon-button title="Code" (click)="insertMarkdown('\`', '\`')">
+              <mat-icon>code</mat-icon>
+            </button>
+            <button mat-icon-button title="Link" (click)="insertMarkdown('[', '](url)')">
+              <mat-icon>link</mat-icon>
+            </button>
+            <button mat-icon-button title="List" (click)="insertMarkdown('- ', '')">
+              <mat-icon>format_list_bulleted</mat-icon>
+            </button>
+            <button mat-icon-button title="Heading" (click)="insertMarkdown('## ', '')">
+              <mat-icon>format_size</mat-icon>
+            </button>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <textarea
+              #contentTextarea
+              matInput
+              placeholder="Write your post content here... (Markdown supported)"
+              [(ngModel)]="postContent"
+              rows="15"
+              class="markdown-editor"></textarea>
+            <mat-hint align="end">{{ postContent.length }} characters</mat-hint>
+          </mat-form-field>
+
+          <div class="markdown-hint">
+            <mat-icon>info</mat-icon>
+            <span>You can use Markdown for formatting: **bold**, *italic*, \`code\`, [links](url), etc.</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions-section">
+          <button mat-button class="cancel-btn" (click)="goBack()">
+            Cancel
+          </button>
+          <div class="right-actions">
+            <button mat-stroked-button class="draft-btn" (click)="saveDraft()">
+              <mat-icon>save</mat-icon>
+              Save Draft
+            </button>
+            <button
+              mat-flat-button
+              class="publish-btn"
+              [disabled]="!canPublish()"
+              (click)="publishPost()">
+              <mat-icon>publish</mat-icon>
+              Publish Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
