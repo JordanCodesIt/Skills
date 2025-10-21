@@ -2,12 +2,12 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { CreateUserInput } from 'src/users/dto/create-user.input';
 import { LoginInput } from './dto/login.input';
-import { User } from 'src/users/entities/user.entity';
+import { AuthResponse } from './dto/auth-response.dto';
 
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
-  @Mutation(() => User)
+  @Mutation(() => AuthResponse)
   async signup(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.authService.signup(createUserInput);
   }

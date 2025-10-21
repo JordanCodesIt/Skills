@@ -14,7 +14,13 @@ type Article {
   exampleField: Int!
 }
 
+type AuthResponse {
+  user: User!
+  accessToken: String!
+}
+
 type Query {
+  me: User!
   users: [User!]!
   user(id: Int!): User!
   articles: [Article!]!
@@ -28,7 +34,7 @@ type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): Article!
   updateArticle(updateArticleInput: UpdateArticleInput!): Article!
   removeArticle(id: Int!): Article!
-  signup(createUserInput: CreateUserInput!): User!
+  signup(createUserInput: CreateUserInput!): AuthResponse!
   login(loginInput: LoginInput!): String!
 }
 
