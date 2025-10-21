@@ -6,10 +6,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from './users/users.module';
 import { ArticlesModule } from './articles/articles.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
+import { TagsModule } from './tags/tags.module';
+import { ArticleCommentsModule } from './article-comments/article-comments.module';
+import { ArticleReactionsModule } from './article-reactions/article-reactions.module';
 
 @Module({
   imports: [
@@ -23,12 +25,15 @@ import { join } from 'path';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'skillhub.db',
-      entities: [User],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     UsersModule,
     ArticlesModule,
     AuthModule,
+    TagsModule,
+    ArticleCommentsModule,
+    ArticleReactionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

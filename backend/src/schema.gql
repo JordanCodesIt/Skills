@@ -2,16 +2,52 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ArticleReaction {
+  id: Int!
+  type: String!
+  createdAt: DateTime!
+  user: User!
+  article: Article!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Tag {
+  id: Int!
+  name: String!
+  articles: [Article!]
+}
+
+type Article {
+  id: Int!
+  title: String!
+  content: String!
+  coverImg: String!
+  views: Int!
+  author: User!
+  tags: [Tag!]
+  createdAt: DateTime!
+}
+
+type ArticleComment {
+  id: Int!
+  content: String!
+  createdAt: DateTime!
+}
+
 type User {
   id: Int!
   firstName: String!
   lastName: String!
+  username: String!
   email: String!
-}
-
-type Article {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  bio: String!
+  profileImage: String!
+  githubUrl: String!
+  website: String!
 }
 
 type AuthResponse {
@@ -25,6 +61,11 @@ type Query {
   user(id: Int!): User!
   articles: [Article!]!
   article(id: Int!): Article!
+  tags: [Tag!]!
+  tag(id: Int!): Tag!
+  articleComments: [ArticleComment!]!
+  articleComment(id: Int!): ArticleComment!
+  reactionsByArticle(articleId: Int!): [ArticleReaction!]!
 }
 
 type Mutation {
@@ -32,39 +73,89 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   createArticle(createArticleInput: CreateArticleInput!): Article!
+  viewArticle(id: Int!): Article!
   updateArticle(updateArticleInput: UpdateArticleInput!): Article!
   removeArticle(id: Int!): Article!
   signup(createUserInput: CreateUserInput!): AuthResponse!
   login(loginInput: LoginInput!): String!
+  createTag(createTagInput: CreateTagInput!): Tag!
+  removeTag(id: Int!): Boolean!
+  createArticleComment(createArticleCommentInput: CreateArticleCommentInput!): ArticleComment!
+  updateArticleComment(updateArticleCommentInput: UpdateArticleCommentInput!): ArticleComment!
+  removeArticleComment(id: Int!): ArticleComment!
+  createArticleReaction(createArticleReactionInput: CreateArticleReactionInput!): ArticleReaction!
+  removeArticleReaction(id: Int!): ArticleReaction!
 }
 
 input CreateUserInput {
   firstName: String!
   lastName: String!
   email: String!
+  username: String!
   password: String!
+  bio: String
+  profileImage: String
+  githubUrl: String
+  website: String
 }
 
 input UpdateUserInput {
   firstName: String
   lastName: String
   email: String
+  username: String
   password: String
+  bio: String
+  profileImage: String
+  githubUrl: String
+  website: String
   id: Int!
 }
 
 input CreateArticleInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  content: String!
+  coverImg: String
+  tags: [String!]
 }
 
 input UpdateArticleInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  content: String
+  coverImg: String
+  tags: [String!]
   id: Int!
 }
 
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateTagInput {
+  name: String!
+}
+
+input CreateArticleCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateArticleCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateArticleReactionInput {
+  articleId: Int!
+  type: ReactionType!
+}
+
+"""Available reaction types for an article"""
+enum ReactionType {
+  LIKE
+  LOVE
+  CLAP
+  FIRE
 }
