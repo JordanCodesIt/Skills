@@ -1,0 +1,67 @@
+┌─────────────┐          ┌─────────────┐          ┌──────────────┐
+│   users     │ 1      n │  articles   │ n      n │   tags       │
+├─────────────┤          ├─────────────┤          ├──────────────┤
+│ id (PK)     │          │ id (PK)     │          │ id (PK)      │
+│ username    │          │ author_id FK│          │ name         │
+│ email       │          │ title       │          └──────────────┘
+│ password    │          │ content     │                 ▲
+│ profile_img │          │ cover_img   │                 │
+│ bio         │          │ created_at  │        ┌────────┴───────────┐
+│ website     │          │ views       │        │ article_tags       │
+│ github_url  │          └─────────────┘        ├────────────────────┤
+└─────────────┘                                  │ article_id (FK, PK)│
+                                                 │ tag_id (FK, PK)    │
+                                                 └────────────────────┘
+
+              ┌─────────────────────┐
+              │ article_comments    │
+              ├─────────────────────┤
+              │ id (PK)             │
+              │ article_id FK       │
+              │ user_id FK          │
+              │ parent_id (nullable)│ ← nested replies
+              │ content             │
+              │ created_at          │
+              └─────────────────────┘
+
+              ┌─────────────────────┐
+              │ article_reactions   │
+              ├─────────────────────┤
+              │ user_id FK (PK)     │
+              │ article_id FK (PK)  │
+              │ type ('like','love','fire') │
+              └─────────────────────┘
+
+
+THREADS SECTION
+────────────────────────────────────────────────────────────
+
+┌──────────────┐           ┌─────────────────────┐
+│   threads     │  n    n  │   thread_tags        │
+├──────────────┤           ├─────────────────────┤
+│ id (PK)      │           │ thread_id (FK, PK)   │
+│ user_id FK   │           │ tag_id (FK, PK)      │
+│ title        │           └─────────────────────┘
+│ content      │
+│ created_at   │
+└──────────────┘
+
+┌───────────────────────┐
+│ thread_comments       │
+├───────────────────────┤
+│ id (PK)               │
+│ thread_id FK          │
+│ user_id FK            │
+│ parent_id (nullable)  │
+│ content               │
+│ created_at            │
+└───────────────────────┘
+
+┌────────────────────────┐
+│ thread_reactions       │
+├────────────────────────┤
+│ user_id FK (PK)        │
+│ thread_id FK (PK)      │
+│ type ('like','love','fire') │
+└────────────────────────┘
+

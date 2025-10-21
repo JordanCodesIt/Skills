@@ -1,0 +1,50 @@
+<mat-toolbar class="navbar">
+  <div class="navbar-container">
+    <!-- Left Section: Logo and Search -->
+    <div class="navbar-left">
+      <div class="logo-section">
+        <mat-icon class="logo-icon">apartment</mat-icon>
+        <span class="logo-text">Angular </span>
+      </div>
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix class="search-icon">search</mat-icon>
+        <input matInput placeholder="Search..." [(ngModel)]="searchQuery" />
+      </mat-form-field>
+    </div>
+
+    <!-- Right Section: Auth Buttons (when not authenticated) -->
+    <div class="navbar-right" *ngIf="!isAuthenticated">
+      <button mat-button class="login-btn" (click)="goToLogin()">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+      <button mat-flat-button class="signup-btn" (click)="goToSignup()">
+        Sign Up
+      </button>
+    </div>
+
+    <!-- Right Section: User Menu (when authenticated) -->
+    <div class="navbar-right" *ngIf="isAuthenticated">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-avatar">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
