@@ -1,0 +1,53 @@
+
+    <div class="articles-container">
+      <div class="articles-header">
+        <h1 class="articles-title">Latest Articles</h1>
+        <p class="articles-subtitle">Discover insightful content from our community</p>
+      </div>
+
+      <div class="filters-section">
+        <button
+          class="filter-btn"
+          [class.active]="selectedFilter === 'all'"
+          (click)="filterPosts('all')">
+          All Posts
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="selectedFilter === 'hacktoberfest'"
+          (click)="filterPosts('hacktoberfest')">
+          Hacktoberfest
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="selectedFilter === 'webdev'"
+          (click)="filterPosts('webdev')">
+          Web Dev
+        </button>
+        <button
+          class="filter-btn"
+          [class.active]="selectedFilter === 'opensource'"
+          (click)="filterPosts('opensource')">
+          Open Source
+        </button>
+      </div>
+
+      <div class="posts-grid">
+        <app-post-card
+          *ngFor="let post of filteredPosts"
+          [category]="post.category"
+          [authorName]="post.authorName"
+          [postDate]="post.postDate"
+          [title]="post.title"
+          [tags]="post.tags"
+          [readTime]="post.readTime"
+          [isBookmarked]="post.isBookmarked"
+          (commentClick)="handleComment(post)"
+          (bookmarkClick)="handleBookmark(post, $event)">
+        </app-post-card>
+      </div>
+
+      <div *ngIf="filteredPosts.length === 0" class="no-posts">
+        <p>No articles found for this filter.</p>
+      </div>
+    </div>

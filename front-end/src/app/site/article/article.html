@@ -1,0 +1,37 @@
+<div class="post-card">
+  <!-- Header Badge -->
+  <div class="post-header">
+    <span class="header-badge">{{ category }}</span>
+  </div>
+
+  <!-- Author Info -->
+  <div class="author-section">
+    <div class="avatar">{{ getInitials(authorName) }}</div>
+    <div class="author-info">
+      <h4 class="author-name">{{ authorName }}</h4>
+      <span class="post-date">{{ postDate }}</span>
+    </div>
+  </div>
+
+  <!-- Post Title -->
+  <h2 class="post-title">{{ title }}</h2>
+
+  <!-- Tags -->
+  <div class="tags-section">
+    <span class="tag" *ngFor="let tag of tags">#{{ tag }}</span>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="post-footer">
+    <button class="comment-btn" (click)="onAddComment()">
+      <mat-icon>chat_bubble_outline</mat-icon>
+      Add Comment
+    </button>
+    <div class="footer-right">
+      <span class="read-time">{{ readTime }} min read</span>
+      <button class="bookmark-btn" (click)="onBookmark()">
+        <mat-icon>{{ isBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+
+.main-layout {
+      display: flex;
+      gap: 32px;
+      max-width: 1400px;
+      margin: 0 ;
+      padding: 24px;
+    }
+
+@media (max-width: 1024px) {
+      .main-layout {
+        flex-direction: column;
+      }
+}
