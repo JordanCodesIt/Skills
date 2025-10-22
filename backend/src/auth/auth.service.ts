@@ -16,11 +16,18 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
   async signup(createUserInput: CreateUserInput) {
-    const existingUser = await this.usersService.findByEmail(
+    const existingUserEmail = await this.usersService.findByEmail(
       createUserInput.email,
     );
-    if (existingUser) {
+    if (existingUserEmail) {
       throw new ConflictException('Email Is Existing');
+    }
+    const existingUserUserName = await this.usersService.findByUserName(
+      createUserInput.username,
+    );
+
+    if (existingUserUserName) {
+      throw new ConflictException('Username Is Existing');
     }
     const hashedPassword = await bcrypt.hash(createUserInput.password, 10);
     const user = await this.usersService.create({

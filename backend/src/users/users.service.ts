@@ -36,6 +36,10 @@ export class UsersService {
     return await this.repo.findOne({ where: { email } });
   }
 
+  async findByUserName(username: string) {
+    return await this.repo.findOne({ where: { username } });
+  }
+
   async update(id: number, updateUserInput: UpdateUserInput) {
     const user = await this.repo.findOneBy({ id });
     if (!user) {

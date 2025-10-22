@@ -1,26 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ArticleComment } from './entities/article-comment.entity';
 import { CreateArticleCommentInput } from './dto/create-article-comment.input';
-import { UpdateArticleCommentInput } from './dto/update-article-comment.input';
+import { User } from 'src/users/entities/user.entity';
+import { Article } from 'src/articles/entities/article.entity';
 
 @Injectable()
 export class ArticleCommentsService {
-  create(createArticleCommentInput: CreateArticleCommentInput) {
-    return 'This action adds a new articleComment';
+  constructor(
+    @InjectRepository(ArticleComment)
+    private readonly commentRepo: Repository<ArticleComment>,
+    @InjectRepository(Article)
+    private readonly articleRepo: Repository<Article>,
+  ) {}
+
+  async create(input: CreateArticleCommentInput, user: User) {
+    const article = await this.articleRepo.findOne({
+      where: { id: input.articleId },
+    });
+    if (!article) throw new NotFoundException('Article not found');
+
+    let parentComment: ArticleComment | undefined = undefined;
+    if (input.parentCommentId) {
+      const found = await this.commentRepo.findOne({
+        where: { id: input.parentCommentId },
+      });
+      if (!found) throw new NotFoundException('Parent comment not found');
+      parentComment = found;
+    }
+
+    const comment = this.commentRepo.create({
+      content: input.content,
+      article,
+      user,
+      parentComment,
+    });
+
+    return this.commentRepo.save(comment);
   }
 
-  findAll() {
-    return `This action returns all articleComments`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} articleComment`;
-  }
-
-  update(id: number, updateArticleCommentInput: UpdateArticleCommentInput) {
-    return `This action updates a #${id} articleComment`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} articleComment`;
+  async findByArticle(articleId: number) {
+    return this.commentRepo.find({
+      where: { article: { id: articleId } },
+      relations: ['user', 'replies', 'replies.user'],
+      order: { createdAt: 'ASC' },
+    });
   }
 }

@@ -1,35 +1,29 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Int, Query } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import { ArticleCommentsService } from './article-comments.service';
 import { ArticleComment } from './entities/article-comment.entity';
 import { CreateArticleCommentInput } from './dto/create-article-comment.input';
-import { UpdateArticleCommentInput } from './dto/update-article-comment.input';
+import { AuthGuard } from 'src/guard/auth.guard';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @Resolver(() => ArticleComment)
 export class ArticleCommentsResolver {
-  constructor(private readonly articleCommentsService: ArticleCommentsService) {}
+  constructor(private readonly commentsService: ArticleCommentsService) {}
 
+  @UseGuards(AuthGuard)
   @Mutation(() => ArticleComment)
-  createArticleComment(@Args('createArticleCommentInput') createArticleCommentInput: CreateArticleCommentInput) {
-    return this.articleCommentsService.create(createArticleCommentInput);
+  async createComment(
+    @Args('input') input: CreateArticleCommentInput,
+    @CurrentUser() user: User,
+  ) {
+    return this.commentsService.create(input, user);
   }
 
-  @Query(() => [ArticleComment], { name: 'articleComments' })
-  findAll() {
-    return this.articleCommentsService.findAll();
-  }
-
-  @Query(() => ArticleComment, { name: 'articleComment' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.articleCommentsService.findOne(id);
-  }
-
-  @Mutation(() => ArticleComment)
-  updateArticleComment(@Args('updateArticleCommentInput') updateArticleCommentInput: UpdateArticleCommentInput) {
-    return this.articleCommentsService.update(updateArticleCommentInput.id, updateArticleCommentInput);
-  }
-
-  @Mutation(() => ArticleComment)
-  removeArticleComment(@Args('id', { type: () => Int }) id: number) {
-    return this.articleCommentsService.remove(id);
+  @Query(() => [ArticleComment])
+  async commentsByArticle(
+    @Args('articleId', { type: () => Int }) articleId: number,
+  ) {
+    return this.commentsService.findByArticle(articleId);
   }
 }

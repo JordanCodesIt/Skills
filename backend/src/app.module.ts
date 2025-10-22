@@ -12,6 +12,7 @@ import { join } from 'path';
 import { TagsModule } from './tags/tags.module';
 import { ArticleCommentsModule } from './article-comments/article-comments.module';
 import { ArticleReactionsModule } from './article-reactions/article-reactions.module';
+import { ArticleViewsModule } from './article-views/article-views.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ArticleReactionsModule } from './article-reactions/article-reactions.mo
     TagsModule,
     ArticleCommentsModule,
     ArticleReactionsModule,
+    ArticleViewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

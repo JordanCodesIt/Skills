@@ -36,6 +36,7 @@ type ArticleComment {
   id: Int!
   content: String!
   createdAt: DateTime!
+  user: User!
 }
 
 type User {
@@ -63,9 +64,9 @@ type Query {
   article(id: Int!): Article!
   tags: [Tag!]!
   tag(id: Int!): Tag!
-  articleComments: [ArticleComment!]!
-  articleComment(id: Int!): ArticleComment!
+  commentsByArticle(articleId: Int!): [ArticleComment!]!
   reactionsByArticle(articleId: Int!): [ArticleReaction!]!
+  articleViewsCount(articleId: Int!): Int!
 }
 
 type Mutation {
@@ -73,16 +74,14 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   createArticle(createArticleInput: CreateArticleInput!): Article!
-  viewArticle(id: Int!): Article!
+  viewArticle(articleId: Int!): Article!
   updateArticle(updateArticleInput: UpdateArticleInput!): Article!
   removeArticle(id: Int!): Article!
   signup(createUserInput: CreateUserInput!): AuthResponse!
   login(loginInput: LoginInput!): String!
   createTag(createTagInput: CreateTagInput!): Tag!
   removeTag(id: Int!): Boolean!
-  createArticleComment(createArticleCommentInput: CreateArticleCommentInput!): ArticleComment!
-  updateArticleComment(updateArticleCommentInput: UpdateArticleCommentInput!): ArticleComment!
-  removeArticleComment(id: Int!): ArticleComment!
+  createComment(input: CreateArticleCommentInput!): ArticleComment!
   createArticleReaction(createArticleReactionInput: CreateArticleReactionInput!): ArticleReaction!
   removeArticleReaction(id: Int!): ArticleReaction!
 }
@@ -137,14 +136,9 @@ input CreateTagInput {
 }
 
 input CreateArticleCommentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateArticleCommentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  content: String!
+  articleId: Int!
+  parentCommentId: Int
 }
 
 input CreateArticleReactionInput {

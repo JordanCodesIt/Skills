@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { ArticleComment } from 'src/article-comments/entities/article-comment.entity';
 import { ArticleReaction } from 'src/article-reactions/entities/article-reaction.entity';
+import { ArticleView } from 'src/article-views/entities/article-view.entity';
 import { Tag } from 'src/tags/entities/tag.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
@@ -33,7 +34,7 @@ export class Article {
   @Column()
   coverImg: string;
 
-  @Field(() => Int)
+  @Field(() => Int, { defaultValue: 0 })
   @Column({ default: 0 })
   views: number;
 
@@ -59,4 +60,7 @@ export class Article {
 
   @OneToMany(() => ArticleReaction, (reaction) => reaction.article)
   reactions: ArticleReaction[];
+
+  @OneToMany(() => ArticleView, (view) => view.article)
+  articleViews: ArticleView[];
 }

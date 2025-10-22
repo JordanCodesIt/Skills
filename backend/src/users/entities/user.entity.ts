@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { ArticleComment } from 'src/article-comments/entities/article-comment.entity';
 import { ArticleReaction } from 'src/article-reactions/entities/article-reaction.entity';
+import { ArticleView } from 'src/article-views/entities/article-view.entity';
 import { Article } from 'src/articles/entities/article.entity';
 import { PrimaryGeneratedColumn, Entity, Column, OneToMany } from 'typeorm';
 
@@ -54,4 +55,7 @@ export class User {
 
   @OneToMany(() => ArticleReaction, (reaction) => reaction.user)
   reactions: ArticleReaction[];
+
+  @OneToMany(() => ArticleView, (view) => view.user)
+  articleViews: ArticleView[];
 }
