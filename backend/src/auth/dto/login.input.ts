@@ -9,6 +9,6 @@ export class LoginInput {
 
   @Field()
   @IsString()
-  @MinLength(6)
+  @MinLength(8)
   password: string;
 }

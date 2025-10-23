@@ -1,21 +1,24 @@
-FROM node:20-alpine
+# ---------- Build Stage ----------
+FROM node:22-alpine AS builder
 
 WORKDIR /usr/src/app
 
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy source code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Expose port
-EXPOSE 3000
+# ---------- Production Stage ----------
+FROM node:22-alpine AS runner
 
-# Start the app
+WORKDIR /usr/src/app
+
+# Copy only built files + dependencies
+COPY --from=builder /usr/src/app/package*.json ./
+RUN npm install --omit=dev
+
+COPY --from=builder /usr/src/app/dist ./dist
+
+EXPOSE 3000
 CMD ["node", "dist/main.js"]

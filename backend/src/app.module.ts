@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -13,6 +13,7 @@ import { TagsModule } from './tags/tags.module';
 import { ArticleCommentsModule } from './article-comments/article-comments.module';
 import { ArticleReactionsModule } from './article-reactions/article-reactions.module';
 import { ArticleViewsModule } from './article-views/article-views.module';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -58,6 +59,14 @@ import { ArticleViewsModule } from './article-views/article-views.module';
     ArticleViewsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        whitelist: true,
+      }),
+    },
+  ],
 })
 export class AppModule {}
