@@ -18,16 +18,36 @@ import { ArticleViewsModule } from './article-views/article-views.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath:
+        process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'skillhub.db',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => {
+        const isProd = process.env.NODE_ENV === 'production';
+
+        return isProd
+          ? {
+              type: 'postgres',
+              host: process.env.DATABASE_HOST,
+              port: parseInt(process.env.DATABASE_PORT || '5433', 10),
+              username: process.env.DATABASE_USER,
+              password: process.env.DATABASE_PASSWORD,
+              database: process.env.DATABASE_NAME,
+              entities: [__dirname + '/**/*.entity{.ts,.js}'],
+              synchronize: false, //
+              ssl: false,
+            }
+          : {
+              type: 'sqlite',
+              database: 'skillhub.db',
+              entities: [__dirname + '/**/*.entity{.ts,.js}'],
+              synchronize: true,
+            };
+      },
     }),
     UsersModule,
     ArticlesModule,

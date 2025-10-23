@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: stolenDev.to
+      POSTGRES_DB: skillhub
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  nestjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: skillhub_api
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+
+volumes:
+  pgdata:
