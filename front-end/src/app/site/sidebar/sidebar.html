@@ -1,0 +1,43 @@
+    <aside class="sidebar">
+      <!-- Categories Section -->
+      <div class="sidebar-section">
+        <h3 class="section-title">Categories</h3>
+        <ul class="category-list">
+          <li
+            *ngFor="let category of categories"
+            class="category-item"
+            (click)="onCategoryClick(category)">
+            <span class="category-dot"></span>
+            {{ category }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social Links Section -->
+      <div class="sidebar-section">
+        <h3 class="section-title">Connect With Us</h3>
+        <div class="social-links">
+          <a
+            *ngFor="let link of socialLinks"
+            [href]="link.url"
+            target="_blank"
+            class="social-link"
+            [title]="link.name">
+            <mat-icon>{{ link.icon }}</mat-icon>
+          </a>
+        </div>
+      </div>
+
+      <!-- Popular Tags Section -->
+      <div class="sidebar-section">
+        <h3 class="section-title">Popular Tags</h3>
+        <div class="tags-container">
+          <span
+            *ngFor="let tag of popularTags"
+            class="tag"
+            (click)="onTagClick(tag)">
+            #{{ tag }}
+          </span>
+        </div>
+      </div>
+    </aside>

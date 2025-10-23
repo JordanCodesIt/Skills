@@ -7,15 +7,13 @@
   top: 0;
   z-index: 1000;
 }
-
 .navbar-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 0 24px;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px;
-  width: 100%;
 }
 
 /* Left Section */
@@ -58,6 +56,11 @@
 }
 
 .search-field {
+  /* margin-right:auto; */
+  margin-left:300px;
+  margin-right:200px;
+  flex:1;
+  display:flex;
   width: 100%;
   max-width: 500px;
   margin-bottom: -1.25em;
@@ -86,6 +89,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left:auto;
 }
 
 .login-btn {
