@@ -1,3 +1,4 @@
+
 <div class="register-container">
   <mat-card class="register-card" appearance="outlined">
     <mat-card-header>
@@ -10,9 +11,20 @@
     <mat-card-content>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Full Name</mat-label>
-        <input matInput type="text" [(ngModel)]="name" placeholder="John Doe" />
+        <input matInput type="text" [(ngModel)]="firstName" placeholder="John" />
         <mat-icon matPrefix>person</mat-icon>
       </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput type="text" [(ngModel)]="lastName" placeholder="Doe" />
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username </mat-label>
+        <input matInput type="text" [(ngModel)]="username" placeholder="you_here" />
+        <mat-icon matPrefix>person</mat-icon>
+      </mat-form-field>
+
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email Address</mat-label>
         <input matInput type="email" [(ngModel)]="email" placeholder="you@example.com" />
@@ -34,7 +46,7 @@
         Sign Up
       </button>
       <div class="login-prompt">
-        Already have an account? <a href="#" class="link-text">Sign in</a>
+        Already have an account? <a href="/login" class="link-text">Sign in</a>
       </div>
     </mat-card-actions>
   </mat-card>

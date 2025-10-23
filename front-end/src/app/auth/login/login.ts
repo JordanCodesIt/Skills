@@ -5,6 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
+import { AuthService } from '../auth-service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,18 +16,26 @@ import { MatIcon } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatIcon
+    MatIcon,
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
+  constructor(
+    readonly authService: AuthService,
+    private toastr: ToastrService,
+  ) {}
   email = '';
   password = '';
-
   login() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    this.authService.login(this.email, this.password).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.accessToken);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
-

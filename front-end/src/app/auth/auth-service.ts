@@ -1,23 +1,78 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
+import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+const LOGIN = gql`
+  mutation ($email: String!, $password: String!) {
+    login(loginInput: { email: $email, password: $password })
+  }
+`;
+const SIGNUP = gql`
+  mutation signup(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $username: String!
+  ) {
+    signup(
+      createUserInput: {
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        password: $password
+        username: $username
+      }
+    ) {
+      user {
+        id
+        email
+      }
+      accessToken
+    }
+  }
+`;
+interface RegisterData {
+  lastName: string;
+  firstName: string;
+  email: string;
+  password: string;
+  username: string;
+}
+
+interface DataRegister {
+  accessToken:string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private authUrl = 'https://api.example.com/auth';
-  constructor(private http: HttpClient) {}
-  register(credentials: {username:string, email: string; password: string }): Observable<any> {
-    return this.http
-      .post<{ token: string }>(`${this.authUrl}/register`, credentials)
-      .pipe(tap((response) => localStorage.setItem('token', response.token)));
+  constructor(
+    private readonly apollo: Apollo,
+    private toastr: ToastrService,
+  ) {}
+  register({ firstName, lastName, email, password, username }: RegisterData) :Observable<DataRegister>{
+    return this.apollo
+      .mutate({ mutation: SIGNUP, variables: { firstName, lastName, email, password, username } })
+      .pipe(
+        map((result:any)=>{
+        return result.data.signup;
+        }));
   }
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http
-      .post<{ token: string }>(`${this.authUrl}/login`, credentials)
-      .pipe(tap((response) => localStorage.setItem('token', response.token)));
+  login(email: string, password: string) {
+    this.toastr.success('hello');
+    return this.apollo
+      .mutate({
+        mutation: LOGIN,
+
+        variables: { email: email, password: password },
+      }).pipe(
+        map((result:any)=>{
+        return result.data.login;
+        }));
   }
+
   logout(): void {
     localStorage.removeItem('token');
   }
@@ -28,9 +83,9 @@ export class AuthService {
     return !!this.getToken();
   }
   hasRole(role: string): boolean {
-  const token = this.getToken();
-  if (!token) return false;
-  const payload = JSON.parse(atob(token.split('.')[1]));
-  return payload.roles.includes(role);
-}
+    const token = this.getToken();
+    if (!token) return false;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.roles.includes(role);
+  }
 }
