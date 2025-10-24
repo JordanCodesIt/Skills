@@ -1,5 +1,7 @@
+
 .navbar {
-  background: white !important;
+  background-color:#0d0d0f;
+  background: !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 8px 0;
   height: 70px;
@@ -57,6 +59,7 @@
 
 .search-field {
   /* margin-right:auto; */
+  color:#ececec;
   margin-left:300px;
   margin-right:200px;
   flex:1;
@@ -80,7 +83,7 @@
 }
 
 .search-icon {
-  color: #a0aec0;
+  color: #ececec;
   margin-right: 4px;
 }
 
@@ -93,6 +96,7 @@
 }
 
 .login-btn {
+  background-color:#ececec;
   color: #667eea;
   font-weight: 500;
   text-transform: none;
