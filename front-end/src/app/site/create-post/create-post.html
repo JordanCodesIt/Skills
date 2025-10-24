@@ -96,14 +96,24 @@
             style="display: none"
             (change)="onFileSelected($event)">
         </div>
+<!-- Content Section (Markdown) -->
+<div class="form-section">
+  <label class="section-label">
+    <mat-icon>edit_note</mat-icon>
+    Content (Markdown Supported)
+  </label>
 
-        <!-- Content Section (Markdown) -->
-        <div class="form-section">
-          <label class="section-label">
-            <mat-icon>edit_note</mat-icon>
-            Content (Markdown Supported)
-          </label>
+  <div class="markdown-editor-container">
+    <!-- Tab Navigation -->
+    <mat-tab-group [(selectedIndex)]="activeTab" class="markdown-tabs">
+      <!-- Write Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>edit</mat-icon>
+          Write
+        </ng-template>
 
+        <div class="tab-content">
           <div class="markdown-toolbar">
             <button mat-icon-button title="Bold" (click)="insertMarkdown('**', '**')">
               <mat-icon>format_bold</mat-icon>
@@ -135,14 +145,29 @@
               class="markdown-editor"></textarea>
             <mat-hint align="end">{{ postContent.length }} characters</mat-hint>
           </mat-form-field>
-
-          <div class="markdown-hint">
-            <mat-icon>info</mat-icon>
-            <span>You can use Markdown for formatting: **bold**, *italic*, \`code\`, [links](url), etc.</span>
-          </div>
         </div>
+      </mat-tab>
 
-        <!-- Action Buttons -->
+      <!-- Preview Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>visibility</mat-icon>
+          Preview
+        </ng-template>
+
+        <div class="tab-content">
+          <div class="markdown-preview" [innerHTML]="getMarkdownPreview()"></div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="markdown-hint">
+    <mat-icon>info</mat-icon>
+    <span>You can use Markdown for formatting: **bold**, *italic*, \`code\`, [links](url), etc.</span>
+  </div>
+</div>
+     <!-- Action Buttons -->
         <div class="actions-section">
           <button mat-button class="cancel-btn" (click)="goBack()">
             Cancel

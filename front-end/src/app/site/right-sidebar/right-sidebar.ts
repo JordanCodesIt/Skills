@@ -62,7 +62,8 @@ export class RightSidebarComponent {
   constructor(private router: Router) {}
 
   navigateToCreatePost() {
-    this.router.navigate(['/createpost']);
+    console.log('clicked');
+    this.router.navigate(['/create-post']);
   }
 
   navigateToThread(thread: PopularThread) {

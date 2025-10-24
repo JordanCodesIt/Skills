@@ -42,7 +42,7 @@ const GET_ARTICLES = gql`
 export class ArticlesComponent implements OnInit, OnDestroy {
   selectedFilter: string = 'all';
   private querySubscription!: Subscription;
-  posts!: Post[];
+  posts: Post[]=[];
   loading! : boolean ;
   filteredPosts: Post[] = [];
   constructor(readonly apollo: Apollo) {}
