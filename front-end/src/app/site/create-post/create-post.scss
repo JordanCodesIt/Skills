@@ -1,13 +1,24 @@
-.container{
-  height:100%;
-  width:100%;
-  background-color:#0d0d0f;
+/* ============================================
+   CONTAINER & BASE STYLES
+   ============================================ */
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #0d0d0f;
+  padding: 20px;
 }
 
 .create-post-container {
+  max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
+  width: 100%;
 }
+
+/* ============================================
+   HEADER SECTION
+   ============================================ */
 
 .create-post-header {
   display: flex;
@@ -18,24 +29,33 @@
 
 .back-btn {
   color: #667eea;
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-4px);
 }
 
 .page-title {
-  font-size: 32px;
+  font-size: clamp(24px, 5vw, 32px);
   font-weight: 700;
-  color:#ececec;
-  color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-//  -webkit-background-clip: text;
- // -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0;
 }
 
+/* ============================================
+   CARD STYLES
+   ============================================ */
+
 .create-post-card {
-  background: white;
-  border-radius: 12px;
+  background: #1a1a1f;
+  border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .form-section {
@@ -48,7 +68,7 @@
   gap: 8px;
   font-size: 16px;
   font-weight: 600;
-  color: #1a202c;
+  color: #e2e8f0;
   margin-bottom: 12px;
 }
 
@@ -63,6 +83,35 @@
   width: 100%;
 }
 
+/* Material Design Overrides for Dark Theme */
+.full-width ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #0d0d0f !important;
+}
+
+.full-width ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+.full-width ::ng-deep .mat-mdc-input-element,
+.full-width ::ng-deep .mat-mdc-select {
+  color: #e2e8f0 !important;
+}
+
+.full-width ::ng-deep .mat-mdc-form-field-label {
+  color: #a0aec0 !important;
+}
+
+.full-width ::ng-deep .mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+.full-width ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #0d0d0f !important;
+}
+
+.full-width ::ng-deep .mdc-line-ripple::after {
+  border-bottom-color: #667eea !important;
+}
 
 /* ============================================
    TAGS SECTION
@@ -77,16 +126,17 @@
   flex-wrap: wrap;
   gap: 8px;
   min-height: 48px;
-  padding: 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  background: #f7fafc;
+  padding: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
+  background: #0d0d0f;
 }
 
 .available-tags-label {
   font-size: 14px;
-  color: #718096;
+  color: #a0aec0;
   margin-bottom: 12px;
+  margin-top: 16px;
 }
 
 .tags-grid {
@@ -97,15 +147,15 @@
 }
 
 .tag-chip {
-  padding: 6px 14px;
-  background: #f7fafc;
+  padding: 8px 16px;
+  background: rgba(102, 126, 234, 0.1);
   color: #667eea;
-  border-radius: 16px;
+  border-radius: 20px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .tag-chip:hover {
@@ -113,6 +163,13 @@
   color: white;
   border-color: transparent;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.tag-chip.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
 }
 
 .add-custom-tag {
@@ -126,72 +183,77 @@
 }
 
 .add-tag-btn {
-  background: #667eea !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white !important;
   height: 56px;
+  min-width: 56px;
 }
-
 
 /* ============================================
    IMAGE UPLOAD SECTION
    ============================================ */
 
 .image-upload-area {
-  border: 2px dashed #cbd5e0;
-  border-radius: 8px;
+  border: 2px dashed rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
   padding: 40px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  background: rgba(102, 126, 234, 0.05);
 }
 
 .image-upload-area:hover {
   border-color: #667eea;
-  background: #f7fafc;
+  background: rgba(102, 126, 234, 0.1);
 }
 
 .upload-placeholder mat-icon {
   font-size: 64px;
   width: 64px;
   height: 64px;
-  color: #a0aec0;
+  color: #667eea;
   margin-bottom: 16px;
+  opacity: 0.7;
 }
 
 .upload-placeholder p {
   font-size: 16px;
-  color: #4a5568;
+  color: #e2e8f0;
   margin: 0 0 8px 0;
 }
 
 .upload-hint {
   font-size: 14px;
-  color: #718096;
+  color: #a0aec0;
 }
 
 .image-preview {
   position: relative;
+  display: inline-block;
+  max-width: 100%;
 }
 
 .image-preview img {
   max-width: 100%;
   max-height: 300px;
-  border-radius: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .remove-image-btn {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  backdrop-filter: blur(10px);
 }
 
 .remove-image-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(102, 126, 234, 0.9) !important;
 }
-
 
 /* ============================================
    MARKDOWN EDITOR - CONTAINER & TABS
@@ -199,44 +261,49 @@
 
 .markdown-editor-container {
   margin-top: 10px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
   overflow: hidden;
+  background: #0d0d0f;
 }
 
 .markdown-tabs {
-  background: #f6f8fa;
+  background: #1a1a1f;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab-labels {
-  background: #f6f8fa;
-  border-bottom: 1px solid #d0d7de;
+  background: #1a1a1f;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab {
   min-width: 100px;
   padding: 0 16px;
   height: 48px;
+  color: #a0aec0;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab-label-content {
   display: flex;
   align-items: center;
   gap: 8px;
+  color:#ececec;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab .mat-icon {
   font-size: 20px;
   width: 20px;
   height: 20px;
+  color:#ececec;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled) {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab.mdc-tab--active {
   opacity: 1;
+  color: #667eea;
 }
 
 .markdown-tabs ::ng-deep .mdc-tab-indicator__content--underline {
@@ -246,10 +313,9 @@
 
 .tab-content {
   padding: 16px;
-  background: white;
+  background: #0d0d0f;
   min-height: 400px;
 }
-
 
 /* ============================================
    MARKDOWN EDITOR - TOOLBAR
@@ -257,26 +323,27 @@
 
 .markdown-toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
   margin-bottom: 12px;
   padding: 8px;
-  background: #f6f8fa;
-  border-radius: 6px;
-  border: 1px solid #d0d7de;
+  background: #1a1a1f;
+  border-radius: 8px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .markdown-toolbar button {
   min-width: 36px;
   width: 36px;
   height: 36px;
-  color: #4a5568;
+  color: #a0aec0;
+  transition: all 0.2s ease;
 }
 
 .markdown-toolbar button:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(102, 126, 234, 0.2);
   color: #667eea;
 }
-
 
 /* ============================================
    MARKDOWN EDITOR - TEXTAREA
@@ -285,9 +352,17 @@
 .markdown-editor {
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
+  background: #0d0d0f !important;
+  color: #e2e8f0 !important;
+  border: none;
+  resize: vertical;
 }
 
+.markdown-editor ::ng-deep textarea {
+  background: #0d0d0f !important;
+  color: #e2e8f0 !important;
+}
 
 /* ============================================
    MARKDOWN EDITOR - PREVIEW
@@ -298,11 +373,11 @@
   min-height: 350px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.6;
-  color: #24292f;
+  color: #e2e8f0;
 }
 
 .empty-preview {
-  color: #57606a;
+  color: #718096;
   font-style: italic;
   text-align: center;
   padding: 60px 20px;
@@ -315,7 +390,8 @@
   font-weight: 600;
   margin: 0.67em 0;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid #d0d7de;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+  color: #f7fafc;
 }
 
 .markdown-preview h2 {
@@ -323,19 +399,22 @@
   font-weight: 600;
   margin: 0.75em 0;
   padding-bottom: 0.3em;
-  border-bottom: 1px solid #d0d7de;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+  color: #f7fafc;
 }
 
 .markdown-preview h3 {
   font-size: 1.25em;
   font-weight: 600;
   margin: 0.83em 0;
+  color: #f7fafc;
 }
 
 .markdown-preview h4 {
   font-size: 1em;
   font-weight: 600;
   margin: 1em 0;
+  color: #f7fafc;
 }
 
 .markdown-preview p {
@@ -344,6 +423,7 @@
 
 .markdown-preview strong {
   font-weight: 600;
+  color: #f7fafc;
 }
 
 .markdown-preview em {
@@ -352,20 +432,21 @@
 
 /* Markdown Preview - Code */
 .markdown-preview code {
-  background: rgba(175, 184, 193, 0.2);
+  background: rgba(102, 126, 234, 0.1);
   padding: 3px 6px;
   border-radius: 6px;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
   font-size: 0.85em;
+  color: #667eea;
 }
 
 .markdown-preview pre {
-  background: #f6f8fa;
+  background: #1a1a1f;
   padding: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow-x: auto;
   margin: 16px 0;
-  border: 1px solid #d0d7de;
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .markdown-preview pre code {
@@ -373,6 +454,7 @@
   padding: 0;
   font-size: 0.85em;
   line-height: 1.45;
+  color: #e2e8f0;
 }
 
 /* Markdown Preview - Lists */
@@ -392,20 +474,22 @@
 
 /* Markdown Preview - Links */
 .markdown-preview a {
-  color: #0969da;
+  color: #667eea;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .markdown-preview a:hover {
+  color: #764ba2;
   text-decoration: underline;
 }
 
 /* Markdown Preview - Blockquotes */
 .markdown-preview blockquote {
-  border-left: 4px solid #d0d7de;
+  border-left: 4px solid #667eea;
   padding-left: 16px;
   margin: 16px 0;
-  color: #57606a;
+  color: #a0aec0;
 }
 
 /* Markdown Preview - Tables */
@@ -417,24 +501,26 @@
 
 .markdown-preview table th,
 .markdown-preview table td {
-  border: 1px solid #d0d7de;
+  border: 1px solid rgba(102, 126, 234, 0.2);
   padding: 8px 13px;
 }
 
 .markdown-preview table th {
-  background: #f6f8fa;
+  background: #1a1a1f;
   font-weight: 600;
+  color: #f7fafc;
 }
 
 /* Markdown Preview - Images & Horizontal Rules */
 .markdown-preview img {
   max-width: 100%;
   height: auto;
+  border-radius: 8px;
 }
 
 .markdown-preview hr {
   height: 2px;
-  background: #d0d7de;
+  background: rgba(102, 126, 234, 0.2);
   border: none;
   margin: 24px 0;
 }
@@ -445,11 +531,12 @@
   align-items: center;
   gap: 8px;
   padding: 12px;
-  background: #f0f9ff;
+  background: rgba(102, 126, 234, 0.1);
   border-radius: 8px;
   font-size: 13px;
-  color: #0c4a6e;
+  color: #667eea;
   margin-top: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .markdown-hint mat-icon {
@@ -457,7 +544,6 @@
   width: 18px;
   height: 18px;
 }
-
 
 /* ============================================
    ACTION BUTTONS
@@ -468,11 +554,16 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 24px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .cancel-btn {
-  color: #718096 !important;
+  color: #a0aec0 !important;
+  transition: color 0.2s ease;
+}
+
+.cancel-btn:hover {
+  color: #e2e8f0 !important;
 }
 
 .right-actions {
@@ -481,8 +572,14 @@
 }
 
 .draft-btn {
-  border-color: #cbd5e0 !important;
-  color: #4a5568 !important;
+  border: 1px solid rgba(102, 126, 234, 0.3) !important;
+  color: #667eea !important;
+  background: rgba(102, 126, 234, 0.1) !important;
+  transition: all 0.2s ease;
+}
+
+.draft-btn:hover {
+  background: rgba(102, 126, 234, 0.2) !important;
 }
 
 .draft-btn mat-icon {
@@ -492,7 +589,14 @@
 .publish-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white !important;
-  padding: 0 32px;
+  padding: 0 32px !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.2s ease;
+}
+
+.publish-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
 .publish-btn mat-icon {
@@ -500,25 +604,70 @@
 }
 
 .publish-btn:disabled {
-  background: #e2e8f0 !important;
-  color: #a0aec0 !important;
+  background: #2d2d35 !important;
+  color: #4a5568 !important;
+  box-shadow: none;
+  transform: none;
 }
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
 @media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+
   .create-post-container {
     padding: 16px;
   }
 
   .create-post-card {
     padding: 20px;
+    border-radius: 12px;
   }
 
   .page-title {
     font-size: 24px;
   }
 
+  .form-section {
+    margin-bottom: 24px;
+  }
+
+  .image-upload-area {
+    padding: 30px 20px;
+  }
+
+  .upload-placeholder mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .tab-content {
+    padding: 12px;
+    min-height: 300px;
+  }
+
+  .markdown-toolbar {
+    padding: 6px;
+  }
+
+  .markdown-preview {
+    padding: 16px;
+  }
+
   .actions-section {
     flex-direction: column;
     gap: 12px;
+    align-items: stretch;
+  }
+
+  .cancel-btn {
+    width: 100%;
+    order: 3;
   }
 
   .right-actions {
@@ -530,4 +679,63 @@
   .publish-btn {
     width: 100%;
   }
+
+  .add-custom-tag {
+    flex-direction: column;
+  }
+
+  .add-tag-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-post-header {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .create-post-card {
+    padding: 16px;
+  }
+
+  .section-label {
+    font-size: 14px;
+  }
+
+  .tags-grid {
+    gap: 6px;
+  }
+
+  .tag-chip {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .markdown-tabs ::ng-deep .mat-mdc-tab {
+    min-width: 80px;
+    padding: 0 12px;
+  }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.5);
 }
