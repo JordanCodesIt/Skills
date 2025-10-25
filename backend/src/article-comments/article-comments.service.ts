@@ -37,7 +37,11 @@ export class ArticleCommentsService {
       parentComment,
     });
 
-    return this.commentRepo.save(comment);
+    const savedComment = await this.commentRepo.save(comment);
+    return this.commentRepo.findOne({
+      where: { id: savedComment.id },
+      relations: ['user', 'replies', 'parentComment', 'replies.user'],
+    });
   }
 
   async findByArticle(articleId: number) {
