@@ -36,19 +36,22 @@ import { APP_PIPE } from '@nestjs/core';
           ? {
               type: 'postgres',
               host: process.env.DATABASE_HOST,
-              port: parseInt(process.env.DATABASE_PORT || '5433', 10),
+              port: parseInt(process.env.DATABASE_PORT || '5432', 10),
               username: process.env.DATABASE_USER,
               password: process.env.DATABASE_PASSWORD,
               database: process.env.DATABASE_NAME,
               entities: [__dirname + '/**/*.entity{.ts,.js}'],
               synchronize: false, //
-              ssl: false,
+              ssl: {
+                rejectUnauthorized: false,
+              },
             }
           : {
               type: 'sqlite',
               database: 'skillhub.db',
               entities: [__dirname + '/**/*.entity{.ts,.js}'],
               synchronize: true,
+              logging: ['error', 'query'],
             };
       },
     }),
