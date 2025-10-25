@@ -28,8 +28,10 @@ export const appConfig: ApplicationConfig = {
       const httpLink = inject(HttpLink);
 
       return {
+
         link: httpLink.create({uri:'http://localhost:3000/graphql'}),
         cache: new InMemoryCache(),
+
       };
     }),
     provideAnimations(),

@@ -13,10 +13,10 @@ interface SocialLink {
   selector: 'app-sidebar',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl:'./sidebar.html',
-  styleUrl:'./sidebar.scss'
+  templateUrl:'./left-sidebar.html',
+  styleUrl:'./left-sidebar.scss'
 })
-export class SidebarComponent {
+export class LeftSidebar {
   categories: string[] = [
     'Web Development',
     'Mobile Development',

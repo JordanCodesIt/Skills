@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { gql,Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
+import { CommentsSection } from '../../article/comments-section/comments-section';
 export const GET_ARTICLE_BY_ID = gql`
   query GetArticle($id: Int!) {
     article(id: $id) {
@@ -25,8 +26,8 @@ export const GET_ARTICLE_BY_ID = gql`
 
 @Component({
   selector: 'app-article-detail',
-  standalone: true,
-  imports: [CommonModule],
+  standalone:true,
+  imports: [CommonModule,CommentsSection],
   templateUrl: './post.html',
   styleUrls: ['./post.scss']
 })
