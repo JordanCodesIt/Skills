@@ -1,25 +1,29 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-
+import { Router } from '@angular/router';
+interface Tag{
+  name:string;
+}
 @Component({
   selector: 'app-post-card',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule,],
   templateUrl: './article.html',
   styleUrls: ['./article.scss']
 })
 export class PostCardComponent {
-  @Input() category: string = 'Hacktoberfest: Contribution Chronicles';
+  // @Input() category!: Tag ;
+  constructor(private router:Router ){}
   @Input() authorName: string = 'Sudharsan Saravanan';
   @Input() postDate: string = 'Oct 21';
   @Input() title: string = 'My Hacktoberfest 2025 Journey: Lessons from 14 Accepted PRs';
-  @Input() tags: string[] = ['hacktoberfest', 'opensource', 'devchallenge', 'webdev'];
+  @Input() tags!: Tag[];
   @Input() readTime: number = 2;
   @Input() isBookmarked: boolean = false;
 
   @Output() commentClick = new EventEmitter<void>();
   @Output() bookmarkClick = new EventEmitter<boolean>();
-
+  @Output() cardClick = new EventEmitter<void>();
   getInitials(name: string): string {
     return name
       .split(' ')
@@ -31,6 +35,9 @@ export class PostCardComponent {
 
   onAddComment() {
     this.commentClick.emit();
+  }
+  onCardClick(){
+    this.cardClick.emit();
   }
 
   onBookmark() {

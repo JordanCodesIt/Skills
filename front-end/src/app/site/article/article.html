@@ -1,7 +1,8 @@
-<div class="post-card">
+<div class="post-card" (click)="onCardClick()" >
   <!-- Header Badge -->
   <div class="post-header">
-    <span class="header-badge">{{ category }}</span>
+    <!-- <span class="header-badge">{{ category.name }}</span> -->
+    <span class="header-badge">Web</span>
   </div>
 
   <!-- Author Info -->
@@ -18,7 +19,7 @@
 
   <!-- Tags -->
   <div class="tags-section">
-    <span class="tag" *ngFor="let tag of tags">#{{ tag }}</span>
+    <span class="tag" *ngFor="let tag of tags">#{{ tag.name }}</span>
   </div>
 
   <!-- Footer Actions -->

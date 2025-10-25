@@ -34,14 +34,12 @@
       <div class="posts-grid">
         <app-post-card
           *ngFor="let post of filteredPosts"
-          [category]="post.category"
-          [authorName]="post.authorName"
-          [postDate]="post.postDate"
+          [authorName]="post.author.firstName"
+          [postDate]="post.createdAt"
           [title]="post.title"
           [tags]="post.tags"
-          [readTime]="post.readTime"
-          [isBookmarked]="post.isBookmarked"
           (commentClick)="handleComment(post)"
+          (cardClick)="handleClick(post)"
           (bookmarkClick)="handleBookmark(post, $event)">
         </app-post-card>
       </div>

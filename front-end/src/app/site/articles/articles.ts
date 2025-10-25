@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 import { PostCardComponent } from '../article/article';
 import { gql, Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
+interface Tag{
+  name:string;
+}
 interface Post {
   id: number;
-  category: string;
-  authorName: string;
-  postDate: string;
+  author: {firstName:string,lastName:string};
+  createdAt: string;
   title: string;
-  tags: string[];
-  readTime: number;
-  isBookmarked: boolean;
+  tags: Tag[];
+ // readTime: number;
+ // isBookmarked: boolean;
 }
 
 const GET_ARTICLES = gql`
@@ -19,8 +23,8 @@ const GET_ARTICLES = gql`
     articles {
       id
       title
-      content
       coverImg
+      createdAt
       author {
         firstName
         lastName
@@ -42,10 +46,12 @@ const GET_ARTICLES = gql`
 export class ArticlesComponent implements OnInit, OnDestroy {
   selectedFilter: string = 'all';
   private querySubscription!: Subscription;
-  posts: Post[]=[];
+  posts!: Post[];
   loading! : boolean ;
   filteredPosts: Post[] = [];
+   private router = inject(Router);
   constructor(readonly apollo: Apollo) {}
+
 
   ngOnInit() {
     this.querySubscription = this.apollo
@@ -54,26 +60,25 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading;
+        this.posts=data.articles;
         if (!loading){
 
         this.posts = data.articles;
+        this.filteredPosts=this.posts;
+          console.log(this.posts,'posts loaded');
         }
 
       });
-  }
-
-  ngOnDestroy() {
-    this.querySubscription.unsubscribe();
   }
   filterPosts(filter: string) {
     this.selectedFilter = filter;
 
     if (filter === 'all') {
       this.filteredPosts = this.posts;
+      console.log(this.filteredPosts,'filtred posts');
     } else {
-      this.filteredPosts = this.posts.filter(
-        (post) => post.tags.includes(filter) || post.category.toLowerCase().includes(filter),
-      );
+      this.filteredPosts = this.posts.filter((post)=>post.tags.some(tag=>tag.name.toLowerCase().includes(filter.toLowerCase()))
+              );
     }
   }
 
@@ -81,12 +86,20 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     console.log('Comment clicked for post:', post.title);
     alert(`Opening comments for: ${post.title}`);
   }
-
+  handleClick(post: Post){
+    alert('cardClicked');
+    this.router.navigate(['/articles',post.id]);
+  }
   handleBookmark(post: Post, isBookmarked: boolean) {
     console.log(`Post ${post.id} bookmark status:`, isBookmarked);
     const postIndex = this.posts.findIndex((p) => p.id === post.id);
     if (postIndex !== -1) {
-      this.posts[postIndex].isBookmarked = isBookmarked;
+      //this.posts[postIndex].isBookmarked = isBookmarked;
     }
   }
+
+  ngOnDestroy() {
+    this.querySubscription.unsubscribe();
+  }
+
 }
