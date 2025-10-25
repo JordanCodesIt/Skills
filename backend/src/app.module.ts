@@ -35,11 +35,7 @@ import { APP_PIPE } from '@nestjs/core';
         return isProd
           ? {
               type: 'postgres',
-              host: process.env.DATABASE_HOST,
-              port: parseInt(process.env.DATABASE_PORT || '5432', 10),
-              username: process.env.DATABASE_USER,
-              password: process.env.DATABASE_PASSWORD,
-              database: process.env.DATABASE_NAME,
+              url: process.env.DATABASE_URL,
               entities: [__dirname + '/**/*.entity{.ts,.js}'],
               synchronize: false, //
               ssl: {
