@@ -8,6 +8,7 @@ import { MatIcon } from '@angular/material/icon';
 import { UserService } from '../user-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth-service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -26,6 +27,7 @@ export class Login {
   constructor(
     readonly userService: UserService,
     readonly authService : AuthService,
+    readonly router : Router,
   ) {}
   email = '';
   password = '';
@@ -34,6 +36,8 @@ export class Login {
       next: (data) => {
         console.log(data)
         this.userService.setToken(data.login);
+        this.router.navigate(['/']);
+
       },
       error: (err) => {
         console.log(err);
