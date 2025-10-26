@@ -1,7 +1,3 @@
-/* ============================================
-   CONTAINER & BASE STYLES
-   ============================================ */
-
 .container {
   min-height: 100vh;
   width: 100%;
@@ -12,19 +8,15 @@
 .create-post-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 20px;
   width: 100%;
 }
-
-/* ============================================
-   HEADER SECTION
-   ============================================ */
 
 .create-post-header {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .back-btn {
@@ -37,53 +29,46 @@
 }
 
 .page-title {
-  font-size: clamp(24px, 5vw, 32px);
+  font-size: 28px;
   font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #f7fafc;
   margin: 0;
+  line-height: 1.2;
 }
-
-/* ============================================
-   CARD STYLES
-   ============================================ */
 
 .create-post-card {
   background: #1a1a1f;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .form-section {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .section-label {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: #e2e8f0;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .section-label mat-icon {
   color: #667eea;
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .full-width {
   width: 100%;
 }
 
-/* Material Design Overrides for Dark Theme */
 .full-width ::ng-deep .mat-mdc-text-field-wrapper {
   background-color: #0d0d0f !important;
 }
@@ -113,10 +98,6 @@
   border-bottom-color: #667eea !important;
 }
 
-/* ============================================
-   TAGS SECTION
-   ============================================ */
-
 .tags-container {
   margin-bottom: 16px;
 }
@@ -133,25 +114,25 @@
 }
 
 .available-tags-label {
-  font-size: 14px;
+  font-size: 13px;
   color: #a0aec0;
-  margin-bottom: 12px;
-  margin-top: 16px;
+  margin-bottom: 10px;
+  margin-top: 12px;
 }
 
 .tags-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .tag-chip {
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: rgba(102, 126, 234, 0.1);
   color: #667eea;
-  border-radius: 20px;
-  font-size: 13px;
+  border-radius: 16px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -160,7 +141,7 @@
 
 .tag-chip:hover {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  color: #ffffff;
   border-color: transparent;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
@@ -168,13 +149,13 @@
 
 .tag-chip.selected {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  color: #ffffff;
   border-color: transparent;
 }
 
 .add-custom-tag {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: flex-start;
 }
 
@@ -184,22 +165,18 @@
 
 .add-tag-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  color: white !important;
+  color: #ffffff !important;
   height: 56px;
   min-width: 56px;
 }
 
-/* ============================================
-   IMAGE UPLOAD SECTION
-   ============================================ */
-
 .image-upload-area {
   border: 2px dashed rgba(102, 126, 234, 0.3);
   border-radius: 12px;
-  padding: 40px;
+  padding: 32px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   position: relative;
   background: rgba(102, 126, 234, 0.05);
 }
@@ -210,22 +187,22 @@
 }
 
 .upload-placeholder mat-icon {
-  font-size: 64px;
-  width: 64px;
-  height: 64px;
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
   color: #667eea;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   opacity: 0.7;
 }
 
 .upload-placeholder p {
-  font-size: 16px;
+  font-size: 15px;
   color: #e2e8f0;
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
 }
 
 .upload-hint {
-  font-size: 14px;
+  font-size: 13px;
   color: #a0aec0;
 }
 
@@ -247,17 +224,13 @@
   top: 8px;
   right: 8px;
   background: rgba(0, 0, 0, 0.8) !important;
-  color: white !important;
+  color: #ffffff !important;
   backdrop-filter: blur(10px);
 }
 
 .remove-image-btn:hover {
   background: rgba(102, 126, 234, 0.9) !important;
 }
-
-/* ============================================
-   MARKDOWN EDITOR - CONTAINER & TABS
-   ============================================ */
 
 .markdown-editor-container {
   margin-top: 10px;
@@ -279,22 +252,22 @@
 .markdown-tabs ::ng-deep .mat-mdc-tab {
   min-width: 100px;
   padding: 0 16px;
-  height: 48px;
+  height: 44px;
   color: #a0aec0;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab-label-content {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color:#ececec;
+  gap: 6px;
+  color: #e2e8f0;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab .mat-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-  color:#ececec;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #e2e8f0;
 }
 
 .markdown-tabs ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled) {
@@ -306,9 +279,13 @@
   color: #667eea;
 }
 
+.markdown-tabs ::ng-deep .mat-mdc-tab.mdc-tab--active .mat-icon {
+  color: #667eea;
+}
+
 .markdown-tabs ::ng-deep .mdc-tab-indicator__content--underline {
   border-color: #667eea;
-  border-width: 3px;
+  border-width: 2px;
 }
 
 .tab-content {
@@ -316,10 +293,6 @@
   background: #0d0d0f;
   min-height: 400px;
 }
-
-/* ============================================
-   MARKDOWN EDITOR - TOOLBAR
-   ============================================ */
 
 .markdown-toolbar {
   display: flex;
@@ -333,9 +306,9 @@
 }
 
 .markdown-toolbar button {
-  min-width: 36px;
-  width: 36px;
-  height: 36px;
+  min-width: 32px;
+  width: 32px;
+  height: 32px;
   color: #a0aec0;
   transition: all 0.2s ease;
 }
@@ -344,10 +317,6 @@
   background: rgba(102, 126, 234, 0.2);
   color: #667eea;
 }
-
-/* ============================================
-   MARKDOWN EDITOR - TEXTAREA
-   ============================================ */
 
 .markdown-editor {
   font-family: 'Courier New', Courier, monospace;
@@ -364,10 +333,6 @@
   color: #e2e8f0 !important;
 }
 
-/* ============================================
-   MARKDOWN EDITOR - PREVIEW
-   ============================================ */
-
 .markdown-preview {
   padding: 20px;
   min-height: 350px;
@@ -377,14 +342,13 @@
 }
 
 .empty-preview {
-  color: #718096;
+  color: #a0aec0;
   font-style: italic;
   text-align: center;
   padding: 60px 20px;
   font-size: 14px;
 }
 
-/* Markdown Preview - Typography */
 .markdown-preview h1 {
   font-size: 2em;
   font-weight: 600;
@@ -430,7 +394,6 @@
   font-style: italic;
 }
 
-/* Markdown Preview - Code */
 .markdown-preview code {
   background: rgba(102, 126, 234, 0.1);
   padding: 3px 6px;
@@ -457,7 +420,6 @@
   color: #e2e8f0;
 }
 
-/* Markdown Preview - Lists */
 .markdown-preview ul,
 .markdown-preview ol {
   margin: 16px 0;
@@ -472,7 +434,6 @@
   margin-top: 4px;
 }
 
-/* Markdown Preview - Links */
 .markdown-preview a {
   color: #667eea;
   text-decoration: none;
@@ -484,7 +445,6 @@
   text-decoration: underline;
 }
 
-/* Markdown Preview - Blockquotes */
 .markdown-preview blockquote {
   border-left: 4px solid #667eea;
   padding-left: 16px;
@@ -492,7 +452,6 @@
   color: #a0aec0;
 }
 
-/* Markdown Preview - Tables */
 .markdown-preview table {
   border-collapse: collapse;
   width: 100%;
@@ -511,7 +470,6 @@
   color: #f7fafc;
 }
 
-/* Markdown Preview - Images & Horizontal Rules */
 .markdown-preview img {
   max-width: 100%;
   height: auto;
@@ -525,35 +483,30 @@
   margin: 24px 0;
 }
 
-/* Markdown Hint */
 .markdown-hint {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px;
+  padding: 10px;
   background: rgba(102, 126, 234, 0.1);
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   color: #667eea;
-  margin-top: 12px;
+  margin-top: 10px;
   border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .markdown-hint mat-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
-
-/* ============================================
-   ACTION BUTTONS
-   ============================================ */
 
 .actions-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 24px;
+  padding-top: 20px;
   border-top: 1px solid rgba(102, 126, 234, 0.2);
 }
 
@@ -568,7 +521,7 @@
 
 .right-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .draft-btn {
@@ -583,13 +536,13 @@
 }
 
 .draft-btn mat-icon {
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .publish-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  color: white !important;
-  padding: 0 32px !important;
+  color: #ffffff !important;
+  padding: 0 28px !important;
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   transition: all 0.2s ease;
 }
@@ -600,7 +553,7 @@
 }
 
 .publish-btn mat-icon {
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .publish-btn:disabled {
@@ -610,34 +563,57 @@
   transform: none;
 }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-@media (max-width: 768px) {
-  .container {
-    padding: 12px;
-  }
+::-webkit-scrollbar-track {
+  background: #0d0d0f;
+}
 
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.5);
+}
+
+@media (max-width: 1023px) {
   .create-post-container {
     padding: 16px;
   }
 
   .create-post-card {
     padding: 20px;
-    border-radius: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 12px;
+  }
+
+  .create-post-container {
+    padding: 12px;
+  }
+
+  .create-post-card {
+    padding: 16px;
   }
 
   .page-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .form-section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .image-upload-area {
-    padding: 30px 20px;
+    padding: 24px 16px;
   }
 
   .upload-placeholder mat-icon {
@@ -661,7 +637,7 @@
 
   .actions-section {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: stretch;
   }
 
@@ -689,14 +665,18 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 479px) {
   .create-post-header {
     gap: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .create-post-card {
-    padding: 16px;
+    padding: 14px;
+  }
+
+  .page-title {
+    font-size: 20px;
   }
 
   .section-label {
@@ -708,34 +688,13 @@
   }
 
   .tag-chip {
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
 
   .markdown-tabs ::ng-deep .mat-mdc-tab {
     min-width: 80px;
     padding: 0 12px;
+    height: 40px;
   }
-}
-
-/* ============================================
-   SCROLLBAR STYLING
-   ============================================ */
-
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0d0d0f;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(102, 126, 234, 0.3);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(102, 126, 234, 0.5);
 }
