@@ -21,7 +21,5 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideApollo(apolloFactory),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-
-
   ],
 };
