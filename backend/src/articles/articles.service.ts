@@ -33,11 +33,9 @@ export class ArticlesService {
     });
     return this.articleRepo.save(article);
   }
-
   findAll() {
     return this.articleRepo.find({
-      relations: ['author', 'tags'],
-      order: { createdAt: 'DESC' },
+      relations: ['author', 'tags', 'comments', 'reactions', 'articleViews'],
     });
   }
   async incrementViews(
