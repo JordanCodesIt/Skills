@@ -1,90 +1,87 @@
-<!-- article-detail.component.html -->
-<div class='page-wrapper'>
-
 <div class="article-page">
-  <!-- Loading State -->
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="loading-spinner"></div>
-    <p>Loading article...</p>
-  </div>
-
-  <!-- Article Content -->
-  <div *ngIf="!isLoading && article" class="article-container">
-    <!-- Article Header -->
-    <header class="article-header">
-      <div class="article-meta-top">
-        <div class="author-info-header">
-          <div class="author-avatar">{{ getAuthorInitials() }}</div>
-          <div class="author-details">
-            <h4 class="author-name">{{ getAuthorFullName() }}</h4>
-            <div class="meta-info">
-              <span class="publish-date">{{ formatDate(article.createdAt) }}</span>
-              <span class="separator">·</span>
-              <span class="read-time">{{ getReadingTime() }} min read</span>
-            </div>
-          </div>
-        </div>
-        <div class="header-actions">
-          <button class="action-btn" (click)="onBookmark()" title="Bookmark">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-            </svg>
-          </button>
-          <button class="action-btn" (click)="onShare()" title="Share">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="18" cy="5" r="3"></circle>
-              <circle cx="6" cy="12" r="3"></circle>
-              <circle cx="18" cy="19" r="3"></circle>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <h1 class="article-title">{{ article.title }}</h1>
-
-      <div class="article-tags">
-        <span class="tag" *ngFor="let tag of article.tags">#{{ tag.name }}</span>
-      </div>
-    </header>
-
-    <!-- Cover Image -->
-    <div class="cover-image-container" *ngIf="article.coverImg">
-      <img [src]="article.coverImg" [alt]="article.title" class="cover-image">
+  <div class='page-wrapper'>
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading article...</p>
     </div>
 
-    <!-- Article Body -->
-    <article class="article-content">
-      <div class="content-wrapper" [innerHTML]="renderMarkdown(article.content)"></div>
-    </article>
+    <div *ngIf="!isLoading && article" class="article-container">
+      <button class="back-button" (click)="goBack()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>Back</span>
+      </button>
 
-    <!-- Article Footer -->
-    <footer class="article-footer">
-      <div class="tags-section-footer">
-        <span class="tag-footer" *ngFor="let tag of article.tags">#{{ tag.name }}</span>
-      </div>
-
-      <div class="author-card">
-        <div class="author-avatar-large">{{ getAuthorInitials() }}</div>
-        <div class="author-info-card">
-          <h3 class="author-name-large">{{ getAuthorFullName() }}</h3>
-          <p class="author-bio">
-            Passionate developer and technical writer sharing insights about web development and software engineering.
-          </p>
-          <button class="follow-btn">Follow</button>
+      <header class="article-header">
+        <div class="article-meta-top">
+          <div class="author-info-header">
+            <div class="author-avatar">{{ getAuthorInitials() }}</div>
+            <div class="author-details">
+              <h4 class="author-name">{{ getAuthorFullName() }}</h4>
+              <div class="meta-info">
+                <span class="publish-date">{{ formatDate(article.createdAt) }}</span>
+                <span class="separator">·</span>
+                <span class="read-time">{{ getReadingTime() }} min read</span>
+                <span class="separator">·</span>
+                <span class="views-count">{{ viewsCount }} views</span>
+              </div>
+            </div>
+          </div>
+          <div class="header-actions">
+            <button class="action-btn" (click)="onBookmark()" title="Bookmark">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+            <button class="action-btn" (click)="onShare()" title="Share">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+            </button>
+          </div>
         </div>
+        <h1 class="article-title">{{ article.title }}</h1>
+        <div class="article-tags">
+          <span class="tag" *ngFor="let tag of article.tags">#{{ tag.name }}</span>
+        </div>
+      </header>
+
+      <div class="cover-image-container" *ngIf="article.coverImg">
+        <img [src]="article.coverImg" [alt]="article.title" class="cover-image">
       </div>
-    </footer>
-          <app-comments-section [postId]="article.id"></app-comments-section>
-  </div>
 
-  <!-- Error State -->
-  <div *ngIf="!isLoading && !article" class="error-container">
-    <h2>Article not found</h2>
-    <p>The article you're looking for doesn't exist or has been removed.</p>
-    <button class="back-btn" routerLink="/articles">Back to Articles</button>
-  </div>
-</div>
+      <article class="article-content">
+        <div class="content-wrapper" [innerHTML]="renderMarkdown(article.content)"></div>
+      </article>
 
+      <footer class="article-footer">
+        <div class="tags-section-footer">
+          <span class="tag-footer" *ngFor="let tag of article.tags">#{{ tag.name }}</span>
+        </div>
+        <div class="author-card">
+          <div class="author-avatar-large">{{ getAuthorInitials() }}</div>
+          <div class="author-info-card">
+            <h3 class="author-name-large">{{ getAuthorFullName() }}</h3>
+            <p class="author-bio">
+              Passionate developer and technical writer sharing insights about web development and software engineering.
+            </p>
+            <button class="follow-btn">Follow</button>
+          </div>
+        </div>
+      </footer>
+
+      <app-comments-section [postId]="article.id"></app-comments-section>
+    </div>
+
+    <div *ngIf="!isLoading && !article" class="error-container">
+      <h2>Article not found</h2>
+      <p>The article you're looking for doesn't exist or has been removed.</p>
+      <button class="back-btn" (click)="goBack()">Back to Articles</button>
+    </div>
+  </div>
 </div>

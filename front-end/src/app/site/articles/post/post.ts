@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { gql,Apollo } from 'apollo-angular';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { gql, Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { CommentsSection } from '../../article/comments-section/comments-section';
+
 export const GET_ARTICLE_BY_ID = gql`
   query GetArticle($id: Int!) {
     article(id: $id) {
@@ -12,10 +13,12 @@ export const GET_ARTICLE_BY_ID = gql`
       content
       coverImg
       createdAt
+      views
       author {
         firstName
         lastName
-        email }
+        email
+      }
       tags {
         name
       }
@@ -23,46 +26,100 @@ export const GET_ARTICLE_BY_ID = gql`
   }
 `;
 
+const VIEW_ARTICLE = gql`
+  mutation ViewArticle($articleId: Int!) {
+    viewArticle(articleId: $articleId) {
+      id
+      views
+    }
+  }
+`;
+
+const GET_ARTICLE_VIEWS_COUNT = gql`
+  query ArticleViewsCount($articleId: Int!) {
+    articleViewsCount(articleId: $articleId)
+  }
+`;
 
 @Component({
   selector: 'app-article-detail',
-  standalone:true,
-  imports: [CommonModule,CommentsSection],
+  standalone: true,
+  imports: [CommonModule, CommentsSection],
   templateUrl: './post.html',
   styleUrls: ['./post.scss']
 })
-export class Post implements OnInit,OnDestroy {
+export class Post implements OnInit, OnDestroy {
+  private location = inject(Location);
+  private router = inject(Router);
+
   article: any = null;
   isLoading = true;
+  viewsCount: number = 0;
   private querySubscription!: Subscription;
+
   constructor(
     private route: ActivatedRoute,
-    private apollo:Apollo,
+    private apollo: Apollo,
   ) {}
-ngOnInit() {
-  this.isLoading = true;  // ← Start loading
 
-  const id = this.route.snapshot.paramMap.get('id');
-
-  if (id) {
-    this.querySubscription = this.apollo
-      .watchQuery({
-        query: GET_ARTICLE_BY_ID,
-        variables: { id: Number(id) }
-      })
-      .valueChanges.subscribe({
-        next: ({ data }: any) => {
-          this.article = data.article;
-          console.log('article', this.article);
-          this.isLoading = false;  // ← Stop loading on success
-        },
-        error: (error) => {
-          console.error('Error loading article:', error);
-          this.isLoading = false;  // ← Stop loading on error
-        }
-      });
+  ngOnInit() {
+    this.isLoading = true;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.querySubscription = this.apollo
+        .watchQuery({
+          query: GET_ARTICLE_BY_ID,
+          variables: { id: Number(id) },
+          fetchPolicy: 'network-only'
+        })
+        .valueChanges.subscribe({
+          next: ({ data }: any) => {
+            this.article = data.article;
+            console.log('article', this.article);
+            this.isLoading = false;
+            this.recordView(Number(id));
+            this.loadViewsCount(Number(id));
+          },
+          error: (error) => {
+            console.error('Error loading article:', error);
+            this.isLoading = false;
+          }
+        });
+    }
   }
-}
+
+  recordView(articleId: number) {
+    this.apollo.mutate({
+      mutation: VIEW_ARTICLE,
+      variables: { articleId }
+    }).subscribe({
+      next: (result: any) => {
+        this.viewsCount = result.data.viewArticle.views;
+      },
+      error: (error) => {
+        console.error('Error recording view:', error);
+      }
+    });
+  }
+
+  loadViewsCount(articleId: number) {
+    this.apollo.query({
+      query: GET_ARTICLE_VIEWS_COUNT,
+      variables: { articleId },
+      fetchPolicy: 'network-only'
+    }).subscribe({
+      next: (result: any) => {
+        this.viewsCount = result.data.articleViewsCount;
+      },
+      error: (error) => {
+        console.error('Error loading views count:', error);
+      }
+    });
+  }
+
+  goBack() {
+    this.location.back();
+  }
 
   getAuthorInitials(): string {
     if (!this.article?.author) return 'U';
@@ -119,9 +176,9 @@ ngOnInit() {
     console.log('Bookmark article:', this.article.id);
   }
 
-ngOnDestroy() {
-  this.querySubscription.unsubscribe();
-}
-
-
+  ngOnDestroy() {
+    if (this.querySubscription) {
+      this.querySubscription.unsubscribe();
+    }
+  }
 }
