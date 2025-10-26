@@ -25,14 +25,9 @@ const CREATE_COMMENT = gql`
       content: $content
       articleId: $articleId
     }) {
-      id
       content
-      createdAt
       user {
         id
-        email
-        firstName
-        lastName
       }
     }
   }
@@ -112,7 +107,6 @@ export class CommentsSection implements OnInit {
     this.loadComments();
   }
 
-  // Load comments from GraphQL
   loadComments() {
     if (!this.postId) return;
 
@@ -157,12 +151,11 @@ export class CommentsSection implements OnInit {
 
     const articleId = parseInt(this.postId);
     this.isSubmitting = true;
-
     this.apollo.mutate({
       mutation: CREATE_COMMENT,
       variables: {
         content: this.newComment.trim(),
-        articleId: articleId
+        articleId: articleId,
       }
     }).subscribe({
       next: (result: any) => {

@@ -6,7 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../auth-service';
-
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../user-service';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -22,7 +24,12 @@ import { AuthService } from '../auth-service';
   styleUrl: './register.css',
 })
 export class Register {
-  constructor(readonly authService: AuthService) {}
+  constructor(
+    readonly authService: AuthService,
+    readonly userService : UserService,
+    readonly router: Router,
+    readonly snackBar: MatSnackBar,
+  ) {}
   lastName = '';
   firstName = '';
   email = '';
@@ -43,13 +50,23 @@ export class Register {
       username: this.username,
     };
 
-   this.authService.register(credentials).subscribe({
-      next: (res) => {
-        console.log(res,'res')
-        localStorage.setItem('token', res.accessToken);
+    this.authService.register(credentials).subscribe({
+      next: (res: any) => {
+        this.snackBar.open('Registered  successfully!', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+        console.log(res.accessToken,'tokeeen');
+        this.userService.setToken(res.accessToken);
       },
       error: (err) => {
-        console.log(err);
+        this.snackBar.open(err, 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+
       },
     });
   }

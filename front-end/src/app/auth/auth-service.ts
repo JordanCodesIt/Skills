@@ -42,50 +42,41 @@ interface RegisterData {
 }
 
 interface DataRegister {
-  accessToken:string;
+  accessToken: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(
-    private readonly apollo: Apollo,
-    private toastr: ToastrService,
-  ) {}
-  register({ firstName, lastName, email, password, username }: RegisterData) :Observable<DataRegister>{
+  private accessToken: string | null = null;
+  constructor(private readonly apollo: Apollo) {}
+  register({
+    firstName,
+    lastName,
+    email,
+    password,
+    username,
+  }: RegisterData): Observable<DataRegister> {
     return this.apollo
       .mutate({ mutation: SIGNUP, variables: { firstName, lastName, email, password, username } })
       .pipe(
-        map((result:any)=>{
-        return result.data.signup;
-        }));
+        map((result: any) => {
+          return result.data.signup;
+        }),
+      );
   }
 
   login(email: string, password: string) {
-    this.toastr.success('hello');
     return this.apollo
       .mutate({
         mutation: LOGIN,
 
         variables: { email: email, password: password },
-      }).pipe(
-        map((result:any)=>{
-        return result.data.login;
-        }));
+      })
+      .pipe(
+        map((result: any) => {
+          return result.data.login;
+        }),
+      );
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-  }
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-  isAuthenticated(): boolean {
-    return !!this.getToken();
-  }
-  hasRole(role: string): boolean {
-    const token = this.getToken();
-    if (!token) return false;
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.roles.includes(role);
-  }
 }
