@@ -1,12 +1,179 @@
-/* ============================================
-   CONTAINER
-   ============================================ */
+.article-container {
+  background-color: #0d0d0f;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  color: #667eea;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 32px;
+  max-width: 120px;
+}
+
+.back-button:hover {
+  background: rgba(102, 126, 234, 0.2);
+  transform: translateX(-4px);
+}
+
+.back-button svg {
+  flex-shrink: 0;
+}
+
+.article-content {
+  max-width: 900px;
+  margin: 0 auto 48px;
+  background: #1a1a1f;
+  border-radius: 16px;
+  padding: 48px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.article-header {
+  margin-bottom: 32px;
+}
+
+.article-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #f7fafc;
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+}
+
+.article-meta {
+  margin-bottom: 24px;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.author-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.author-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f7fafc;
+}
+
+.meta-items {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-size: 14px;
+  color: #a0aec0;
+}
+
+.meta-separator {
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  color: #667eea;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.article-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  object-fit: cover;
+  max-height: 500px;
+}
+
+.article-body {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #cbd5e0;
+}
+
+.article-body p {
+  margin-bottom: 20px;
+}
+
+.article-body h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #f7fafc;
+  margin: 32px 0 16px;
+}
+
+.article-body h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #f7fafc;
+  margin: 24px 0 12px;
+}
+
+.article-body code {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+.article-body pre {
+  background: #0d0d0f;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
 
 .comments-reactions-container {
-  background-color: #0d0d0f;
-  padding: 40px 0;
-  max-width: 740px;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 0;
 }
 
 .section-title {
@@ -15,10 +182,6 @@
   color: #f7fafc;
   margin: 0;
 }
-
-/* ============================================
-   REACTIONS SECTION
-   ============================================ */
 
 .reactions-section {
   background: #1a1a1f;
@@ -42,11 +205,11 @@
   font-weight: 500;
 }
 
-/* Top Reactions Display */
 .top-reactions {
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .reaction-item {
@@ -86,7 +249,6 @@
   color: white;
 }
 
-/* Add Reaction Button */
 .add-reaction-btn {
   width: 44px;
   height: 44px;
@@ -111,7 +273,6 @@
   font-weight: 600;
 }
 
-/* Reaction Picker Popup */
 .reaction-picker {
   position: absolute;
   top: 100%;
@@ -168,10 +329,6 @@
   font-weight: 600;
 }
 
-/* ============================================
-   COMMENTS SECTION
-   ============================================ */
-
 .comments-section {
   background: #1a1a1f;
   border-radius: 16px;
@@ -191,10 +348,6 @@
   color: #a0aec0;
   font-weight: 500;
 }
-
-/* ============================================
-   ADD COMMENT FORM
-   ============================================ */
 
 .add-comment-form {
   margin-bottom: 32px;
@@ -245,6 +398,11 @@
   color: #718096;
 }
 
+.comment-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .comment-form-actions {
   display: flex;
   justify-content: flex-end;
@@ -272,9 +430,33 @@
   cursor: not-allowed;
 }
 
-/* ============================================
-   COMMENTS LIST
-   ============================================ */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(102, 126, 234, 0.2);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  margin: 0;
+  font-size: 15px;
+  color: #a0aec0;
+}
 
 .comments-list {
   display: flex;
@@ -289,7 +471,6 @@
   border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
-/* Comment Header */
 .comment-header {
   display: flex;
   justify-content: space-between;
@@ -352,7 +533,6 @@
   color: #667eea;
 }
 
-/* Comment Content */
 .comment-content {
   margin-bottom: 12px;
 }
@@ -364,7 +544,6 @@
   color: #cbd5e0;
 }
 
-/* Comment Actions */
 .comment-actions {
   display: flex;
   gap: 16px;
@@ -397,10 +576,6 @@
 .comment-action-btn svg {
   flex-shrink: 0;
 }
-
-/* ============================================
-   REPLY FORM
-   ============================================ */
 
 .reply-form {
   margin-top: 16px;
@@ -458,10 +633,6 @@
   cursor: not-allowed;
 }
 
-/* ============================================
-   REPLIES CONTAINER
-   ============================================ */
-
 .replies-container {
   margin-top: 16px;
   padding-top: 16px;
@@ -486,10 +657,6 @@
   height: 36px;
   font-size: 13px;
 }
-
-/* ============================================
-   EMPTY STATE
-   ============================================ */
 
 .empty-comments {
   text-align: center;
@@ -518,32 +685,65 @@
   color: #a0aec0;
 }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
+@media (max-width: 1024px) {
+  .article-content {
+    padding: 32px;
+  }
+
+  .article-title {
+    font-size: 36px;
+  }
+}
 
 @media (max-width: 768px) {
-  .comments-reactions-container {
-    padding: 24px 16px;
+  .article-container {
+    padding: 16px;
+  }
+
+  .article-content {
+    padding: 24px;
+  }
+
+  .article-title {
+    font-size: 28px;
+  }
+
+  .author-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .author-name {
+    font-size: 16px;
+  }
+
+  .meta-items {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .meta-separator {
+    display: none;
+  }
+
+  .article-body {
+    font-size: 16px;
   }
 
   .reactions-section,
   .comments-section {
     padding: 20px;
-    border-radius: 12px;
   }
 
   .section-title {
     font-size: 20px;
   }
 
-  .top-reactions {
-    flex-wrap: wrap;
-  }
-
   .reaction-picker {
     left: 16px;
-    right: 16px;
+right: 16px;
     grid-template-columns: repeat(2, 1fr);
     min-width: auto;
   }
@@ -573,12 +773,46 @@
 }
 
 @media (max-width: 480px) {
-  .reactions-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+  .back-button {
+    font-size: 14px;
+    padding: 8px 16px;
   }
 
+  .article-content {
+    padding: 20px;
+  }
+
+  .article-title {
+    font-size: 24px;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .author-name {
+    font-size: 15px;
+  }
+
+  .meta-item {
+    font-size: 13px;
+  }
+
+  .article-body {
+    font-size: 15px;
+  }
+
+  .article-body h2 {
+    font-size: 24px;
+  }
+
+  .article-body h3 {
+    font-size: 20px;
+  }
+
+  .reactions-header,
   .comments-header {
     flex-direction: column;
     align-items: flex-start;
