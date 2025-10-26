@@ -1,54 +1,39 @@
-/* ============================================
-   PAGE WRAPPER
-   ============================================ */
-
 .page-wrapper {
   width: 100%;
   background-color: #0d0d0f;
   min-height: 100vh;
 }
 
-/* ============================================
-   MAIN LAYOUT - THREE COLUMN
-   ============================================ */
-
 .main-layout {
   display: grid;
-  grid-template-columns: 330px 1fr 320px;
-  gap: 24px;
-  padding: 24px;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 20px;
+  padding: 20px;
   max-width: 1800px;
   margin: 0 auto;
   align-items: start;
 }
 
-/* Left Sidebar - Fixed to Left */
 app-sidebar {
   position: sticky;
-  top: 24px;
+  top: 20px;
   height: fit-content;
-  max-height: calc(100vh - 48px);
+  max-height: calc(100vh - 40px);
   overflow-y: auto;
 }
 
-/* Articles - Center, Takes Remaining Space */
 app-articles {
   width: 100%;
-  min-width: 0; /* Prevents overflow issues */
+  min-width: 0;
 }
 
-/* Right Sidebar - Fixed to Right */
 app-right-sidebar {
   position: sticky;
-  top: 24px;
+  top: 20px;
   height: fit-content;
-  max-height: calc(100vh - 48px);
+  max-height: calc(100vh - 40px);
   overflow-y: auto;
 }
-
-/* ============================================
-   SCROLLBAR STYLING FOR SIDEBARS
-   ============================================ */
 
 app-sidebar::-webkit-scrollbar,
 app-right-sidebar::-webkit-scrollbar {
@@ -72,33 +57,20 @@ app-right-sidebar::-webkit-scrollbar-thumb:hover {
   background: rgba(102, 126, 234, 0.5);
 }
 
-/* ============================================
-   RESPONSIVE - LARGE SCREENS (1400px - 1800px)
-   ============================================ */
-
 @media (min-width: 1400px) and (max-width: 1800px) {
   .main-layout {
     grid-template-columns: 260px 1fr 300px;
-    gap: 20px;
+    gap: 18px;
   }
 }
-
-/* ============================================
-   RESPONSIVE - MEDIUM SCREENS (1024px - 1400px)
-   ============================================ */
 
 @media (min-width: 1024px) and (max-width: 1399px) {
   .main-layout {
     grid-template-columns: 240px 1fr 280px;
     gap: 16px;
-    padding: 20px;
+    padding: 16px;
   }
 }
-
-/* ============================================
-   RESPONSIVE - TABLET (768px - 1024px)
-   Hide Right Sidebar, Keep Left
-   ============================================ */
 
 @media (max-width: 1023px) {
   .main-layout {
@@ -112,15 +84,10 @@ app-right-sidebar::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* ============================================
-   RESPONSIVE - MOBILE (< 768px)
-   Stack Everything Vertically
-   ============================================ */
-
 @media (max-width: 767px) {
   .main-layout {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
     padding: 12px;
   }
 
@@ -136,13 +103,9 @@ app-right-sidebar::-webkit-scrollbar-thumb:hover {
   }
 }
 
-/* ============================================
-   RESPONSIVE - SMALL MOBILE (< 480px)
-   ============================================ */
-
 @media (max-width: 479px) {
   .main-layout {
     padding: 8px;
-    gap: 12px;
+    gap: 10px;
   }
 }
