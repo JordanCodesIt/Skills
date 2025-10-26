@@ -63,4 +63,18 @@ export class Article {
 
   @OneToMany(() => ArticleView, (view) => view.article)
   articleViews: ArticleView[];
+  @Field(() => Int)
+  get commentsCount(): number {
+    return this.comments ? this.comments.length : 0;
+  }
+
+  @Field(() => Int)
+  get reactionsCount(): number {
+    return this.reactions ? this.reactions.length : 0;
+  }
+
+  @Field(() => Int)
+  get viewsCount(): number {
+    return this.articleViews ? this.articleViews.length : 0;
+  }
 }
