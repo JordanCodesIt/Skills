@@ -12,8 +12,6 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { apolloFactory } from './graphql/apollo.config';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideToastr } from 'ngx-toastr';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch()),
@@ -24,11 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideApollo(apolloFactory),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
 
-    provideAnimations(),
-    provideToastr({
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-    }),
+
   ],
 };
