@@ -37,7 +37,6 @@ export class UserService {
   }
 
   isAuthenticated(): boolean {
-    console.log(this.accessToken);
     return this.hasToken();
   }
 
