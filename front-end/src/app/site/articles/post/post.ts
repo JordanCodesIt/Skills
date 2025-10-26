@@ -75,7 +75,6 @@ export class Post implements OnInit, OnDestroy {
         .valueChanges.subscribe({
           next: ({ data }: any) => {
             this.article = data.article;
-            console.log('article', this.article);
             this.isLoading = false;
             this.recordView(Number(id));
             this.loadViewsCount(Number(id));
