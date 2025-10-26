@@ -1,7 +1,6 @@
-<div class="post-card" (click)="onCardClick()" >
+<div class="post-card" (click)="onCardClick()">
   <!-- Header Badge -->
   <div class="post-header">
-    <!-- <span class="header-badge">{{ category.name }}</span> -->
     <span class="header-badge">Web</span>
   </div>
 
@@ -22,15 +21,31 @@
     <span class="tag" *ngFor="let tag of tags">#{{ tag.name }}</span>
   </div>
 
+  <!-- Engagement Stats -->
+  <div class="engagement-stats">
+    <div class="stat-item">
+      <mat-icon>favorite_border</mat-icon>
+      <span>{{ reactionsCount || 0 }}</span>
+    </div>
+    <div class="stat-item">
+      <mat-icon>chat_bubble_outline</mat-icon>
+      <span>{{ commentsCount || 0 }}</span>
+    </div>
+    <div class="stat-item">
+      <mat-icon>visibility</mat-icon>
+      <span>{{ viewsCount || 0 }}</span>
+    </div>
+  </div>
+
   <!-- Footer Actions -->
   <div class="post-footer">
-    <button class="comment-btn" (click)="onAddComment()">
+    <button class="comment-btn" (click)="onAddComment($event)">
       <mat-icon>chat_bubble_outline</mat-icon>
       Add Comment
     </button>
     <div class="footer-right">
       <span class="read-time">{{ readTime }} min read</span>
-      <button class="bookmark-btn" (click)="onBookmark()">
+      <button class="bookmark-btn" (click)="onBookmark($event)">
         <mat-icon>{{ isBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
       </button>
     </div>
