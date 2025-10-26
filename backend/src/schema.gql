@@ -30,6 +30,9 @@ type Article {
   author: User!
   tags: [Tag!]
   createdAt: DateTime!
+  commentsCount: Int!
+  reactionsCount: Int!
+  viewsCount: Int!
 }
 
 type ArticleComment {
