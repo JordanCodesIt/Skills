@@ -9,13 +9,15 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
-
 export enum ReactionType {
-  LIKE = 'like',
   LOVE = 'love',
-  CLAP = 'clap',
+  LIKE = 'like',
   FIRE = 'fire',
+  CELEBRATE = 'celebrate',
+  INSIGHTFUL = 'insightful',
+  THINKING = 'thinking',
 }
+
 registerEnumType(ReactionType, {
   name: 'ReactionType',
   description: 'Available reaction types for an article',

@@ -148,8 +148,10 @@ input CreateArticleReactionInput {
 
 """Available reaction types for an article"""
 enum ReactionType {
-  LIKE
   LOVE
-  CLAP
+  LIKE
   FIRE
+  CELEBRATE
+  INSIGHTFUL
+  THINKING
 }

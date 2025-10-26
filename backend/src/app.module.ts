@@ -31,24 +31,16 @@ import { APP_PIPE } from '@nestjs/core';
     TypeOrmModule.forRootAsync({
       useFactory: () => {
         const isProd = process.env.NODE_ENV === 'production';
-
-        return isProd
-          ? {
-              type: 'postgres',
-              url: process.env.DATABASE_URL,
-              entities: [__dirname + '/**/*.entity{.ts,.js}'],
-              synchronize: false, //
-              ssl: {
-                rejectUnauthorized: false,
-              },
-            }
-          : {
-              type: 'sqlite',
-              database: 'skillhub.db',
-              entities: [__dirname + '/**/*.entity{.ts,.js}'],
-              synchronize: true,
-              logging: ['error', 'query'],
-            };
+        console.log(isProd);
+        return {
+          type: 'postgres',
+          url: process.env.DATABASE_URL,
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: false, //
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        };
       },
     }),
     UsersModule,
