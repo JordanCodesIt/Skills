@@ -5,7 +5,6 @@ import { gql, Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 interface Tag {
   name: string;
@@ -16,9 +15,21 @@ interface Post {
   createdAt: string;
   title: string;
   tags: Tag[];
+  commentsCount: number;
+  viewsCount: number;
+  reactionsCount: number;
   // readTime: number;
   // isBookmarked: boolean;
 }
+
+const GET_TAGS = gql`
+  query {
+    tags {
+      id
+      name
+    }
+  }
+`;
 
 const GET_ARTICLES = gql`
   query {
@@ -27,6 +38,9 @@ const GET_ARTICLES = gql`
       title
       coverImg
       createdAt
+      commentsCount
+      reactionsCount
+      viewsCount
       author {
         firstName
         lastName
@@ -38,6 +52,7 @@ const GET_ARTICLES = gql`
     }
   }
 `;
+
 @Component({
   selector: 'app-articles',
   standalone: true,
@@ -49,16 +64,16 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   selectedFilter: string = 'all';
   private querySubscription!: Subscription;
   posts!: Post[];
+  tags: Tag[] = [{ name: 'All' }];
   loading!: boolean;
   filteredPosts: Post[] = [];
   private router = inject(Router);
 
   constructor(
     readonly apollo: Apollo,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
   ngOnInit() {
-
     this.querySubscription = this.apollo
       .watchQuery<any>({
         query: GET_ARTICLES,
@@ -69,7 +84,17 @@ export class ArticlesComponent implements OnInit, OnDestroy {
         if (!loading && data && data.articles) {
           this.posts = data.articles;
           this.filteredPosts = this.posts;
-          console.log(this.posts, 'posts loaded');
+        }
+      });
+    this.apollo
+      .watchQuery<any>({
+        query: GET_TAGS,
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        this.loading = loading;
+
+        if (!loading && data && data.tags) {
+          this.tags = data.tags;
         }
       });
   }
