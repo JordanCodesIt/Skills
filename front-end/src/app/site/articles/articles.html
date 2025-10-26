@@ -6,28 +6,11 @@
 
       <div class="filters-section">
         <button
+          *ngFor="let tag of tags"
           class="filter-btn"
-          [class.active]="selectedFilter === 'all'"
-          (click)="filterPosts('all')">
-          All Posts
-        </button>
-        <button
-          class="filter-btn"
-          [class.active]="selectedFilter === 'hacktoberfest'"
-          (click)="filterPosts('hacktoberfest')">
-          Hacktoberfest
-        </button>
-        <button
-          class="filter-btn"
-          [class.active]="selectedFilter === 'webdev'"
-          (click)="filterPosts('webdev')">
-          Web Dev
-        </button>
-        <button
-          class="filter-btn"
-          [class.active]="selectedFilter === 'opensource'"
-          (click)="filterPosts('opensource')">
-          Open Source
+          [class.active]="selectedFilter === tag.name"
+          (click)="filterPosts(tag.name)">
+    {{tag.name.toUpperCase()}}
         </button>
       </div>
 
@@ -38,6 +21,9 @@
           [postDate]="post.createdAt"
           [title]="post.title"
           [tags]="post.tags"
+          [reactionsCount]="post.reactionsCount"
+          [commentsCount]="post.commentsCount"
+          [viewsCount]="post.viewsCount"
           (commentClick)="handleComment(post)"
           (cardClick)="handleClick(post)"
           (bookmarkClick)="handleBookmark(post, $event)">
