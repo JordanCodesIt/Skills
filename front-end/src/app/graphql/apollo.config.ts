@@ -8,7 +8,6 @@ export function apolloFactory() {
   const userService = inject(UserService);
   const authLink = new ApolloLink((operation, forward) => {
     const token = userService.getToken();
-    console.log('token', token);
     operation.setContext(({ headers = {} }) => ({
       headers: {
         ...headers,
