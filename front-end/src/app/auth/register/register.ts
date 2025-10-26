@@ -57,8 +57,8 @@ export class Register {
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
-        console.log(res.accessToken,'tokeeen');
         this.userService.setToken(res.accessToken);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.snackBar.open(err, 'Close', {
