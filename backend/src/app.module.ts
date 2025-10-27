@@ -30,8 +30,6 @@ import { APP_PIPE } from '@nestjs/core';
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => {
-        const isProd = process.env.NODE_ENV === 'production';
-        console.log(isProd);
         return {
           type: 'postgres',
           url: process.env.DATABASE_URL,
