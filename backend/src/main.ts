@@ -14,7 +14,7 @@ async function bootstrap() {
   });
 
   app.enableCors({
-    origin: ['https://skill-hub-version1.vercel.app'],
+    origin: true,
 
     credentials: true,
     allowedHeaders: [
