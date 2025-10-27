@@ -21,7 +21,7 @@ export function apolloFactory() {
   return {
     link: authLink.concat(
       httpLink.create({
-        uri: 'http://localhost:3000/graphql',
+        uri:process.env.BACKEND_URL+'graphql',
       }),
     ),
     cache: new InMemoryCache(),
